@@ -1,0 +1,232 @@
+/* Tokens SENOU Solutions (senou-pack/brand/tokens.css). Couleurs dérivées du logo. */
+:root {
+  --paper: #f5f8fc;
+  --paper-2: #e9eff7;
+  --ink: #0b1220;
+  --ink-2: #3b475c;
+  --navy: #0a1b3d;      /* ex --palm */
+  --navy-2: #06122b;    /* ex --palm-2 */
+  --blue: #1f6fe0;      /* bleu du logo */
+  --cyan: #1fb5f0;      /* cyan du logo */
+  --gold: #f2b441;      /* accent unique, à utiliser avec parcimonie */
+  --mist: #cfe3fb;      /* ex --sky */
+  --white: #ffffff;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
+  --dur-micro: 200ms;
+  --dur-reveal: 700ms;
+
+  --r-sm: 10px;
+  --r-md: 20px;
+  --r-lg: 28px;
+  --r-pill: 999px;
+  --shadow-float: 0 24px 64px -24px rgba(10, 27, 61, 0.35);
+
+  --container: 1280px;
+  --gutter: 24px;
+  --section: 72px;
+}
+@media (min-width: 1024px) { :root { --gutter: 48px; --section: 160px; } }
+[data-theme="white"] { --paper: #ffffff; --paper-2: #f1f5fa; --white: #f7f9fc; }
+/* Interface : filets, ombres douces et polices */
+:root {
+  --font-display: var(--font-sans);
+  --font-body: var(--font-sans);
+  --line: rgba(10, 27, 61, 0.08);
+  --line-strong: rgba(10, 27, 61, 0.14);
+  --shadow-soft: 0 1px 2px rgba(10, 27, 61, 0.04), 0 12px 32px -16px rgba(10, 27, 61, 0.18);
+  --shadow-lift: 0 2px 4px rgba(10, 27, 61, 0.04), 0 28px 56px -24px rgba(31, 111, 224, 0.32);
+  --grad-brand: linear-gradient(120deg, var(--blue), var(--cyan));
+}
+/* Thème « Blanc » : ombre un peu plus marquée sur fond blanc */
+[data-theme="white"] {
+  --shadow-float: 0 24px 64px -24px rgba(10, 27, 61, 0.4);
+}
+/* Transition douce des fonds au changement de thème */
+.theme-switching,
+.theme-switching *,
+.theme-switching *::before,
+.theme-switching *::after {
+  transition: background-color 500ms var(--ease-out-expo), box-shadow 500ms var(--ease-out-expo) !important;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: auto;
+  -webkit-text-size-adjust: 100%;
+}
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  font-feature-settings: "ss01", "cv11";
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+img {
+  height: auto;
+}
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.container {
+  width: min(100% - 2 * var(--gutter), var(--container));
+  margin-inline: auto;
+}
+.section {
+  padding-block: var(--section);
+}
+
+.display-xl,
+.display-l,
+.h2,
+.h3 {
+  font-family: var(--font-display), sans-serif;
+  letter-spacing: -0.035em;
+  line-height: 1.04;
+  font-weight: 700;
+  text-wrap: balance;
+}
+.display-xl {
+  font-size: clamp(52px, 8vw, 112px);
+}
+.display-l {
+  font-size: clamp(38px, 5.4vw, 72px);
+}
+.h2 {
+  font-size: clamp(32px, 4.2vw, 54px);
+}
+.h3 {
+  font-size: clamp(24px, 2.5vw, 32px);
+  line-height: 1.1;
+  font-weight: 600;
+}
+.body-l {
+  font-size: clamp(18px, 1.4vw, 20px);
+}
+/* Sur-titre de section : petit, espacé, en dégradé de marque */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--blue);
+}
+.eyebrow::before {
+  content: "";
+  width: 24px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--grad-brand);
+}
+/* Sur fond navy */
+.on-dark .eyebrow,
+.eyebrow.on-dark {
+  color: var(--cyan);
+}
+.section-head {
+  display: grid;
+  gap: 16px;
+  max-width: 760px;
+}
+.section-head p {
+  color: var(--ink-2);
+}
+.label {
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+/* Mot mis en valeur : dégradé bleu → cyan du logo */
+.accent {
+  color: var(--blue);
+  background: linear-gradient(100deg, var(--blue) 10%, var(--cyan) 90%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  padding-bottom: 0.06em;
+}
+.tnum {
+  font-variant-numeric: tabular-nums;
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+.skip-link {
+  position: fixed;
+  top: 8px;
+  left: 8px;
+  z-index: 1000;
+  padding: 12px 16px;
+  background: var(--ink);
+  color: var(--white);
+  border-radius: var(--r-pill);
+  transform: translateY(-200%);
+  transition: transform var(--dur-micro);
+}
+.skip-link:focus-visible {
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

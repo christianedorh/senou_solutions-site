@@ -1,0 +1,98 @@
+.wrap {
+  background: var(--navy);
+  color: #ffffff;
+  padding-block: var(--section);
+  overflow: hidden;
+}
+.inner {
+  display: grid;
+  gap: 56px;
+}
+.head {
+  display: grid;
+  gap: 28px;
+}
+.title {
+  max-width: 14ch;
+}
+.big {
+  max-width: 34ch;
+  font-weight: 500;
+  color: var(--mist);
+}
+.steps {
+  position: relative;
+  display: grid;
+  gap: 32px;
+  padding-left: 28px;
+}
+/* Ligne de progression : verticale sur mobile, horizontale sur grand écran */
+.track {
+  position: absolute;
+  left: 0;
+  top: 8px;
+  bottom: 8px;
+  width: 2px;
+  background: rgba(207, 227, 251, 0.15);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.trackFill {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, var(--blue), var(--cyan));
+  transform-origin: top;
+}
+.step {
+  display: grid;
+  gap: 10px;
+  align-content: start;
+}
+.n {
+  font-family: var(--font-display), sans-serif;
+  font-weight: 600;
+  font-size: clamp(40px, 4.5vw, 64px);
+  letter-spacing: -0.04em;
+  line-height: 1;
+  background: linear-gradient(120deg, var(--blue), var(--cyan));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.stepTitle {
+  font-family: var(--font-display), sans-serif;
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+.stepText {
+  color: rgba(207, 227, 251, 0.8);
+  max-width: 30ch;
+}
+.actions {
+  display: flex;
+}
+@media (min-width: 1024px) {
+  .head {
+    grid-template-columns: 1fr 1.2fr;
+    align-items: end;
+  }
+  .steps {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+    padding-left: 0;
+    padding-top: 40px;
+  }
+  .track {
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: auto;
+    width: auto;
+    height: 2px;
+  }
+  .trackFill {
+    background: linear-gradient(90deg, var(--blue), var(--cyan));
+    transform-origin: left;
+  }
+}

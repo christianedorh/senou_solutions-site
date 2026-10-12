@@ -1,0 +1,30 @@
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: var(--r-pill);
+}
+.pill::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--cyan);
+}
+.mist {
+  background: var(--mist);
+  color: var(--navy);
+}
+.cyan {
+  background: rgba(31, 181, 240, 0.16);
+  color: var(--navy);
+}
+.paper {
+  background: var(--paper-2);
+  color: var(--ink);
+}
+.dark {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--mist);
+}

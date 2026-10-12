@@ -1,0 +1,13 @@
+.head {
+  display: grid;
+  gap: 20px;
+  justify-items: start;
+  padding-bottom: 56px;
+}
+.title {
+  max-width: 14ch;
+}
+.intro {
+  max-width: 56ch;
+  color: var(--ink-2);
+}

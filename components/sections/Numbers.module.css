@@ -1,0 +1,33 @@
+.wrap {
+  background: var(--paper-2);
+  padding-block: var(--section);
+}
+.title {
+  text-align: center;
+}
+.stats {
+  display: grid;
+  gap: 32px;
+  margin-top: 48px;
+  text-align: center;
+}
+.stat {
+  display: grid;
+  gap: 8px;
+}
+@media (min-width: 768px) {
+  .stats {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+.num {
+  background: linear-gradient(120deg, var(--navy) 20%, var(--blue));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.note {
+  margin-top: 48px;
+  text-align: center;
+  color: var(--ink-2);
+}

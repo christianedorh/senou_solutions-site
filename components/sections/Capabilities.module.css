@@ -1,0 +1,248 @@
+.title {
+  margin-top: 20px;
+}
+.grid {
+  display: grid;
+  gap: 16px;
+  margin-top: 48px;
+  grid-template-columns: 1fr;
+}
+.tile {
+  border-radius: var(--r-lg);
+  padding: 28px;
+  display: grid;
+  gap: 12px;
+  align-content: end;
+  overflow: hidden;
+  position: relative;
+  min-height: 240px;
+}
+.text {
+  color: var(--ink-2);
+  font-size: 15px;
+  max-width: 36ch;
+}
+
+/* 100 % à distance : grande tuile navy avec un globe en orbite */
+.remote {
+  background: var(--navy);
+  color: #ffffff;
+  align-content: space-between;
+  min-height: 380px;
+}
+.remote .text {
+  color: rgba(207, 227, 251, 0.85);
+}
+.globe {
+  position: relative;
+  justify-self: end;
+  width: 220px;
+  height: 220px;
+  display: grid;
+  place-items: center;
+  margin: 8px -12px -12px 0;
+}
+.globeIcon {
+  color: var(--cyan);
+}
+.ring {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 0;
+  height: 0;
+}
+.ring::before {
+  content: "";
+  position: absolute;
+  left: -96px;
+  top: -96px;
+  width: 192px;
+  height: 192px;
+  border-radius: 50%;
+  border: 1px dashed rgba(207, 227, 251, 0.25);
+}
+.ringInner::before {
+  left: -62px;
+  top: -62px;
+  width: 124px;
+  height: 124px;
+  border-style: solid;
+  border-color: rgba(31, 181, 240, 0.25);
+}
+.dot {
+  position: absolute;
+  left: -5px;
+  top: -5px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--cyan);
+  box-shadow: 0 0 0 4px rgba(31, 181, 240, 0.18);
+}
+.dotSmall {
+  left: -4px;
+  top: -4px;
+  width: 8px;
+  height: 8px;
+  background: #ffffff;
+}
+
+.reactive {
+  background: var(--white);
+  box-shadow: inset 0 0 0 1px rgba(10, 27, 61, 0.06);
+}
+.badge {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+}
+.badgeInner {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  background: var(--mist);
+  color: var(--blue);
+}
+
+.sms {
+  background: var(--mist);
+}
+.bubbles {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  display: grid;
+  gap: 8px;
+  justify-items: start;
+}
+.bubble {
+  display: inline-grid;
+  place-items: center;
+  height: 40px;
+  padding: 0 14px;
+  border-radius: 16px 16px 16px 4px;
+  background: var(--white);
+  color: var(--blue);
+  transform-origin: bottom left;
+}
+.bubbleAlt {
+  margin-left: 40px;
+  border-radius: 16px 16px 4px 16px;
+  background: var(--blue);
+  transform-origin: bottom right;
+}
+.lines {
+  width: 56px;
+  height: 6px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 -10px 0 rgba(255, 255, 255, 0.4);
+  margin-top: 10px;
+}
+
+.payments {
+  background: linear-gradient(160deg, rgba(31, 181, 240, 0.22), rgba(31, 111, 224, 0.12));
+}
+.payRow {
+  position: absolute;
+  top: 32px;
+  left: 28px;
+  right: 28px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.payBar {
+  flex: 1;
+  height: 8px;
+  border-radius: 4px;
+  background: rgba(10, 27, 61, 0.1);
+  overflow: hidden;
+}
+.payFill {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, var(--blue), var(--cyan));
+  transform-origin: left;
+}
+.payCheck {
+  display: grid;
+  color: var(--blue);
+}
+
+.platforms {
+  background: var(--white);
+  box-shadow: inset 0 0 0 1px rgba(10, 27, 61, 0.06);
+}
+.iconGrid {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  display: grid;
+  grid-template-columns: repeat(4, 40px);
+  gap: 8px;
+}
+.iconCell {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: var(--paper-2);
+  color: var(--navy);
+  display: grid;
+  place-items: center;
+}
+
+.flexible {
+  background: var(--paper-2);
+  align-content: center;
+  gap: 24px;
+}
+.flow {
+  width: 100%;
+  height: 64px;
+}
+
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .remote,
+  .flexible {
+    grid-column: span 2;
+  }
+}
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: minmax(260px, auto);
+  }
+  .remote {
+    grid-row: span 2;
+  }
+  .flexible {
+    grid-column: span 4;
+    grid-template-columns: 1fr 1.4fr;
+    align-items: center;
+    min-height: 200px;
+  }
+  .globe {
+    width: 260px;
+    height: 260px;
+  }
+}
+/* Espace réservé aux décors placés en haut des tuiles, pour ne jamais chevaucher le texte */
+.reactive {
+  padding-top: 100px;
+}
+.sms {
+  padding-top: 128px;
+}
+.payments {
+  padding-top: 84px;
+}
+.platforms {
+  padding-top: 88px;
+}

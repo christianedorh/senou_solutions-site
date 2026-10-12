@@ -1,0 +1,31 @@
+/* Remplace le bloc :root de app/globals.css (Verso). Couleurs dérivées du logo : valeurs à affiner sur le fichier source. */
+:root {
+  --paper: #f5f8fc;
+  --paper-2: #e9eff7;
+  --ink: #0b1220;
+  --ink-2: #3b475c;
+  --navy: #0a1b3d;      /* ex --palm */
+  --navy-2: #06122b;    /* ex --palm-2 */
+  --blue: #1f6fe0;      /* bleu du logo */
+  --cyan: #1fb5f0;      /* cyan du logo */
+  --gold: #f2b441;      /* accent unique, à utiliser avec parcimonie */
+  --mist: #cfe3fb;      /* ex --sky */
+  --white: #ffffff;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
+  --dur-micro: 200ms;
+  --dur-reveal: 700ms;
+
+  --r-sm: 10px;
+  --r-md: 20px;
+  --r-lg: 28px;
+  --r-pill: 999px;
+  --shadow-float: 0 24px 64px -24px rgba(10, 27, 61, 0.35);
+
+  --container: 1280px;
+  --gutter: 24px;
+  --section: 72px;
+}
+@media (min-width: 1024px) { :root { --gutter: 48px; --section: 160px; } }
+[data-theme="white"] { --paper: #ffffff; --paper-2: #f1f5fa; --white: #f7f9fc; }

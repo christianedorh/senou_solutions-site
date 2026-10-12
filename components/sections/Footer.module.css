@@ -1,0 +1,106 @@
+.wrap {
+  background: var(--navy-2);
+  color: #f5f8fc;
+  padding-top: 80px;
+  overflow: hidden;
+}
+.top {
+  display: grid;
+  gap: 40px;
+  padding-bottom: 48px;
+}
+.brand {
+  display: grid;
+  gap: 16px;
+  justify-items: start;
+}
+.logo {
+  display: block;
+}
+.logo img {
+  height: 44px;
+  width: auto;
+}
+.tagline {
+  color: rgba(245, 248, 252, 0.7);
+}
+.address {
+  display: grid;
+  gap: 6px;
+  color: rgba(245, 248, 252, 0.8);
+  margin-top: 8px;
+}
+.col {
+  display: grid;
+  gap: 10px;
+  align-content: start;
+}
+.colTitle {
+  color: var(--cyan);
+  margin-bottom: 6px;
+}
+.link {
+  color: rgba(245, 248, 252, 0.8);
+}
+.link:hover {
+  color: #ffffff;
+}
+.socials {
+  display: flex;
+  gap: 8px;
+}
+.social {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 255, 255, 0.08);
+  transition: background var(--dur-micro);
+}
+.social:hover {
+  background: var(--navy);
+}
+.legal {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 24px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 14px;
+  color: rgba(245, 248, 252, 0.6);
+}
+.legal a:hover {
+  color: #ffffff;
+}
+.giant {
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  padding-top: 8px;
+}
+.giant span {
+  display: block;
+  font-family: var(--font-display), sans-serif;
+  font-weight: 800;
+  /* « SENOU SOLUTIONS » tient sur une ligne, de bord à bord */
+  font-size: clamp(32px, 9.6vw, 156px);
+  line-height: 0.82;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+  color: transparent;
+  background: linear-gradient(180deg, #1d3c75, var(--navy-2) 92%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  padding-bottom: 0.04em;
+}
+@media (min-width: 768px) {
+  .top {
+    grid-template-columns: 1.6fr repeat(3, 1fr);
+  }
+  .withSocials {
+    grid-template-columns: 1.6fr repeat(4, 1fr);
+  }
+}

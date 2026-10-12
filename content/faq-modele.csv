@@ -1,0 +1,27 @@
+langue,categorie,question,reponse,accueil,ordre
+fr,Nos services,Quels services proposez-vous ?,"Des plateformes web, des applications mobiles, l'intégration de solutions de paiement, du conseil et de la consultation digitale, du marketing digital et de la représentation commerciale.",oui,1
+fr,Nos services,Pour quels types de clients ?,"Des PME et des grands groupes, au Togo et à l'international.",oui,2
+fr,Nos services,Intervenez-vous comme prestataire ou comme consultant ?,"Les deux, selon votre besoin : nous pouvons construire la solution ou vous conseiller avant de décider.",oui,3
+fr,Nos services,Proposez-vous des services SMS ?,Oui. Nous disposons des agréments de l'ARCEP pour les services SMS.,,4
+fr,Déroulé d'un projet,Comment démarrer un projet ?,"Écrivez-nous ou appelez-nous. Nous cadrons votre besoin, puis nous vous envoyons une proposition précise.",oui,5
+fr,Déroulé d'un projet,Comment se déroule un projet ?,"En quatre étapes : cadrage, conception, livraison et suivi. Vous validez le périmètre avant le développement, et nous faisons des points d'étape réguliers.",,6
+fr,Déroulé d'un projet,Combien de temps prend un projet ?,"Cela dépend du périmètre. Le planning est précisé dans notre proposition, une fois votre besoin cadré.",,7
+fr,Déroulé d'un projet,Travaillez-vous à distance ?,"Oui. Notre organisation est pensée pour travailler efficacement à distance, y compris avec des clients à l'international.",oui,8
+fr,Paiement en ligne,Intégrez-vous des solutions de paiement ?,Oui. Nous intégrons des solutions de paiement dans vos plateformes web et mobiles.,oui,9
+fr,Paiement en ligne,Pouvez-vous ajouter le paiement à une plateforme existante ?,"Oui, après une étude de l'existant. Nous vous indiquons ce qui est possible et les éventuelles adaptations nécessaires.",,10
+fr,Suivi et support,Assurez-vous le suivi après la mise en ligne ?,"Oui. Nous restons disponibles pour corriger, améliorer et faire évoluer votre solution.",,11
+fr,Suivi et support,Comment signaler un problème ?,"Écrivez-nous à contact@senousolutions.com en précisant le projet concerné et le problème constaté, ou appelez-nous.",,12
+en,Our services,What services do you offer?,"Web platforms, mobile apps, payment integration, digital consulting, digital marketing and business representation.",oui,1
+en,Our services,Who are your clients?,"SMEs and large groups, in Togo and abroad.",oui,2
+en,Our services,Do you work as a contractor or as a consultant?,"Both, depending on your needs: we can build the solution or advise you before you decide.",,3
+en,Our services,Do you offer SMS services?,Yes. We hold ARCEP approvals for SMS services.,,4
+en,How a project runs,How do I start a project?,"Write to us or call us. We scope your needs, then send you a precise proposal.",,5
+en,How a project runs,How does a project unfold?,"In four steps: scoping, design, delivery and follow-up. You approve the scope before development, and we hold regular checkpoints.",,6
+en,How a project runs,How long does a project take?,"It depends on the scope. The schedule is set out in our proposal, once your needs are scoped.",,7
+en,How a project runs,Do you work remotely?,"Yes. Our organisation is built to work efficiently remotely, including with clients abroad.",oui,8
+en,Online payments,Do you integrate payment solutions?,Yes. We integrate payment solutions into your web and mobile platforms.,oui,9
+en,Online payments,Can you add payments to an existing platform?,"Yes, after reviewing what is already in place. We tell you what is possible and any changes required.",,10
+en,Follow-up and support,Do you provide support after launch?,"Yes. We remain available to fix, improve and evolve your solution.",,11
+en,Follow-up and support,How do I report an issue?,"Write to contact@senousolutions.com stating the project and the issue you noticed, or call us.",,12
+en,Our services,How do we start a project?,"Write or call us. We scope your need, then send you a precise proposal.",oui,13
+en,Our services,Do you act as a provider or a consultant?,"Both, depending on your need: we can build the solution or advise you before you decide.",oui,14

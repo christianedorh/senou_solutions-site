@@ -1,0 +1,27 @@
+# Éléments à valider avant mise en ligne
+
+Recherchez `À VALIDER` dans `content/` et `components/` pour retrouver chaque point.
+
+## Contenus de l'accueil (`fr.ts`, `en.ts`)
+- Service « Intégration de paiement » : citer les opérateurs et solutions de paiement intégrés.
+- Réalisations : descriptions de KDA PRO EVENTS, Africa Ascent, KA Events, Chris Can Companies et Mamoutofu.
+- CTA final, Contact, Support : WhatsApp actif sur le +228 90 95 99 53 ?
+- Réseaux sociaux : comptes à afficher et leurs URL (`SOCIAL_URLS` dans `components/sections/Footer.tsx`). Tant qu'une URL vaut `null`, le réseau n'est pas affiché.
+
+## Nouveaux contenus (octobre 2026)
+- Services « Consultation », « Marketing digital » et « Représentation commerciale » : textes provisoires à valider (et zones couvertes pour la représentation).
+- Partenaire SPARK CORPORATION : logo à fournir (`PARTNER_LOGOS` dans `content/media.ts`). En attendant, le nom est affiché.
+- Réalisations : logos et captures récupérés sur les sites publics des clients. Accord de chaque client pour l'affichage de son logo : confirmé par SENOU Solutions (12/10/2026). Les captures montrent des photos de personnes issues des sites clients.
+- « Gestion de pressings » et « Stock et ventes » : plateformes privées, sans capture publique. Fournir des captures anonymisées si vous souhaitez les montrer.
+
+## Pages légales (`pages.fr.ts`, `pages.en.ts`) — à faire relire par un juriste
+- NIF et RCCM : à copier depuis la facture. **Ne jamais publier le RIB.**
+- Directeur de la publication, hébergeur (nom, adresse, contact), date de mise à jour.
+- Durée de conservation des données, liste des prestataires techniques, pays d'hébergement.
+- Références légales togolaises (loi n° 2019-014) et autorité de protection des données : à confirmer.
+- Juridiction compétente.
+- Un bandeau « à faire relire par un juriste » s'affiche en haut des deux pages légales : le retirer dans `components/pages/LegalDocument.tsx` une fois les textes validés.
+
+## Divers
+- Le numéro court attribué par l'ARCEP n'est volontairement pas affiché.
+- Formulaire de contact : il ouvre la messagerie du visiteur (mailto) vers contact@senousolutions.com. Un envoi côté serveur pourra être branché plus tard.

@@ -1,0 +1,36 @@
+.btn {
+  position: fixed;
+  right: 14px;
+  top: 50%;
+  z-index: 780;
+  width: 40px;
+  height: 40px;
+  margin-top: -20px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 1px 0 rgba(11, 18, 32, 0.06), 0 12px 32px -12px rgba(11, 18, 32, 0.35);
+  opacity: 0.85;
+  transition: opacity var(--dur-micro), box-shadow var(--dur-micro);
+}
+.btn:hover,
+.btn:focus-visible {
+  opacity: 1;
+  box-shadow: 0 1px 0 rgba(11, 18, 32, 0.06), 0 16px 40px -12px rgba(11, 18, 32, 0.45);
+}
+.btn:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 3px;
+}
+@media (min-width: 1024px) {
+  .btn {
+    right: 22px;
+    width: 44px;
+    height: 44px;
+    margin-top: -22px;
+  }
+}
