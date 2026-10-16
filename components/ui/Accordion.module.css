@@ -2,10 +2,10 @@
   display: grid;
 }
 .item {
-  border-top: 1px solid rgba(11, 18, 32, 0.12);
+  border-top: 1px solid var(--line-strong);
 }
 .item:last-child {
-  border-bottom: 1px solid rgba(11, 18, 32, 0.12);
+  border-bottom: 1px solid var(--line-strong);
 }
 .q {
   width: 100%;

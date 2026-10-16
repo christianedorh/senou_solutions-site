@@ -170,7 +170,7 @@ export const pagesFr = {
     pill: "Légal",
     title: ["Conditions", "générales"],
     intro: "Les conditions d'utilisation du site senousolutions.com et les informations légales sur son éditeur.",
-    updated: "Dernière mise à jour : [À VALIDER : date]",
+    updated: "Dernière mise à jour :",
     sections: [
       {
         id: "objet",
@@ -185,9 +185,9 @@ export const pagesFr = {
         title: "2. Éditeur du site",
         paragraphs: ["Le Site est édité par SENOU Solutions, dont le siège est situé à Nyekonakpoe, Lomé, Togo."],
         bullets: [
-          "NIF : [À VALIDER : à copier depuis la facture]",
-          "RCCM : [À VALIDER : à copier depuis la facture]",
-          "Directeur de la publication : [À VALIDER : nom et fonction]",
+          "NIF : 1001750442",
+          "RCCM : TG-LFW-01-2021-A10-03260",
+          "Directeur de la publication : Senou EDORH",
           "Contact : contact@senousolutions.com",
         ],
       },
@@ -249,13 +249,13 @@ export const pagesFr = {
     pill: "Légal",
     title: ["Politique de", "confidentialité"],
     intro: "Quelles données nous recevons quand vous nous contactez, pourquoi, et comment nous les protégeons.",
-    updated: "Dernière mise à jour : [À VALIDER : date]",
+    updated: "Dernière mise à jour :",
     sections: [
       {
         id: "responsable",
         title: "1. Responsable du traitement",
         paragraphs: [
-          "Le responsable du traitement est SENOU Solutions, Nyekonakpoe, Lomé, Togo (NIF : [À VALIDER], RCCM : [À VALIDER]). Pour toute question : contact@senousolutions.com.",
+          "Le responsable du traitement est SENOU Solutions, Nyekonakpoe, Lomé, Togo (NIF : 1001750442, RCCM : TG-LFW-01-2021-A10-03260). Pour toute question : contact@senousolutions.com.",
         ],
       },
       {
@@ -289,7 +289,7 @@ export const pagesFr = {
         id: "cookies",
         title: "5. Cookies et stockage local",
         paragraphs: [
-          "Le Site n'utilise pas de cookies publicitaires ni d'outil de mesure d'audience. Il enregistre seulement dans votre navigateur votre préférence d'affichage (fond clair ou blanc) et le fait que l'animation d'ouverture a déjà été vue. Ces informations ne nous sont pas transmises. [À VALIDER : à mettre à jour si un outil de mesure d'audience est ajouté]",
+          "Le Site n'utilise pas de cookies publicitaires ni d'outil de mesure d'audience. Il enregistre seulement dans votre navigateur votre préférence d'affichage (mode clair ou sombre) et le fait que l'animation d'ouverture a déjà été vue. Ces informations ne nous sont pas transmises. [À VALIDER : à mettre à jour si un outil de mesure d'audience est ajouté]",
         ],
       },
       {

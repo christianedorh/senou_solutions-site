@@ -4,19 +4,19 @@ import { motion } from "motion/react";
 import { useI18n } from "@/components/providers/I18n";
 import s from "./ThemeToggle.module.css";
 
-export type Theme = "paper" | "white";
+export type Theme = "light" | "dark";
 const KEY = "senou-theme";
 
 function read(): Theme {
-  if (typeof document === "undefined") return "paper";
-  return document.documentElement.dataset.theme === "white" ? "white" : "paper";
+  if (typeof document === "undefined") return "light";
+  return document.documentElement.dataset.theme === "dark" ? "dark" : "light";
 }
 
 /** Applique le thème sur <html>, le mémorise, et adoucit le passage. */
 export function applyTheme(theme: Theme) {
   const root = document.documentElement;
   root.classList.add("theme-switching");
-  if (theme === "white") root.dataset.theme = "white";
+  if (theme === "dark") root.dataset.theme = "dark";
   else delete root.dataset.theme;
   try {
     localStorage.setItem(KEY, theme);
@@ -25,19 +25,19 @@ export function applyTheme(theme: Theme) {
 }
 
 /**
- * Bouton discret fixé sur le bord droit : une pastille moitié bleutée, moitié blanche
+ * Bouton discret fixé sur le bord droit : une pastille moitié claire, moitié sombre
  * qui pivote à chaque bascule. Pas de texte, seulement un libellé accessible.
  */
 export function ThemeToggle() {
   const { t } = useI18n();
-  const [theme, setTheme] = useState<Theme>("paper");
+  const [theme, setTheme] = useState<Theme>("light");
   const [mounted, setMounted] = useState(false);
   useEffect(() => {
     setTheme(read());
     setMounted(true);
   }, []);
-  const next: Theme = theme === "white" ? "paper" : "white";
-  const label = next === "white" ? t.nav.theme.toWhite : t.nav.theme.toPaper;
+  const next: Theme = theme === "dark" ? "light" : "dark";
+  const label = next === "dark" ? t.nav.theme.toDark : t.nav.theme.toLight;
 
   return (
     <motion.button
@@ -60,12 +60,12 @@ export function ThemeToggle() {
         width="20"
         height="20"
         aria-hidden
-        animate={{ rotate: theme === "white" ? 180 : 0 }}
+        animate={{ rotate: theme === "dark" ? 180 : 0 }}
         transition={{ type: "spring", stiffness: 260, damping: 22 }}
       >
-        {/* moitié bleutée et moitié blanche */}
-        <path d="M12 2a10 10 0 0 1 0 20z" fill="#ffffff" />
-        <path d="M12 2a10 10 0 0 0 0 20z" fill="var(--paper-2)" />
+        {/* moitié claire et moitié sombre */}
+        <path d="M12 2a10 10 0 0 1 0 20z" fill="#0a1b3d" />
+        <path d="M12 2a10 10 0 0 0 0 20z" fill="#ffffff" />
         <circle cx="12" cy="12" r="9.25" fill="none" stroke="currentColor" strokeWidth="1.5" />
         <path d="M12 2.75v18.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
       </motion.svg>

@@ -16,7 +16,8 @@ export const en = {
     ],
     cta: "Start a project",
     lang: ["FR", "EN"],
-    theme: { toWhite: "Switch to white background", toPaper: "Switch to light background" },
+    theme: { toDark: "Switch to dark mode", toLight: "Switch to light mode" },
+    toTop: "Back to top",
   },
   hero: {
     pill: "Fintech and digital solutions · Lomé, Togo",

@@ -50,7 +50,7 @@ export function Nav({ visible }: { visible: boolean }) {
         transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
       >
         <a href={r("home")} className={s.logo} aria-label={p.ui.homeLabel}>
-          <Logo variant="light" />
+          <Logo variant="auto" />
         </a>
         <nav className={s.links} aria-label={p.ui.mainNav}>
           {t.nav.links.map((l) => (

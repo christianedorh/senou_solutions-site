@@ -73,7 +73,7 @@
   line-height: 1.1;
   letter-spacing: 0.15em;
   text-indent: 0.15em;
-  color: var(--navy);
+  color: var(--heading);
   text-align: center;
 }
 .tagline em {
@@ -98,4 +98,15 @@
   .orb {
     animation: none;
   }
+}
+
+[data-theme="dark"] .wrap {
+  background: radial-gradient(120% 110% at 50% 0%, #10203f 0%, #060d1c 100%);
+}
+[data-theme="dark"] .meter {
+  background: rgba(255, 255, 255, 0.14);
+}
+[data-theme="dark"] .logo path[fill="#0a1b3d"],
+[data-theme="dark"] .logo path[fill="#3b475c"] {
+  fill: #eaf0fa;
 }

@@ -22,7 +22,7 @@
   font-family: var(--font-display), sans-serif;
   font-weight: 500;
   font-size: clamp(20px, 2.4vw, 32px);
-  color: var(--navy);
+  color: var(--heading);
   letter-spacing: -0.02em;
   white-space: nowrap;
 }

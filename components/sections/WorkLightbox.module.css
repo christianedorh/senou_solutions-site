@@ -175,7 +175,7 @@
   display: grid;
   place-items: center;
   background: rgba(255, 255, 255, 0.92);
-  color: var(--navy);
+  color: #0a1b3d;
   box-shadow: var(--shadow-soft);
   transition: transform 300ms var(--ease-out-expo), background var(--dur-micro);
 }

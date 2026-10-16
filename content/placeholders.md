@@ -14,8 +14,8 @@ Recherchez `À VALIDER` dans `content/` et `components/` pour retrouver chaque p
 - « Gestion de pressings » et « Stock et ventes » : plateformes privées, sans capture publique. Fournir des captures anonymisées si vous souhaitez les montrer.
 
 ## Pages légales (`pages.fr.ts`, `pages.en.ts`) — à faire relire par un juriste
-- NIF et RCCM : à copier depuis la facture. **Ne jamais publier le RIB.**
-- Directeur de la publication, hébergeur (nom, adresse, contact), date de mise à jour.
+- NIF, RCCM et directeur de la publication (Senou EDORH) : validés. **Ne jamais publier le RIB.**
+- Hébergeur (nom, adresse, contact) : à compléter. La date de mise à jour est automatique : c'est la date du dernier build/déploiement.
 - Durée de conservation des données, liste des prestataires techniques, pays d'hébergement.
 - Références légales togolaises (loi n° 2019-014) et autorité de protection des données : à confirmer.
 - Juridiction compétente.

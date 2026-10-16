@@ -29,7 +29,7 @@
   width: 100%;
   min-height: 52px;
   padding: 14px 16px;
-  border: 1.5px solid rgba(11, 18, 32, 0.14);
+  border: 1.5px solid var(--line-strong);
   border-radius: 14px;
   background: var(--paper);
   font: inherit;
@@ -44,7 +44,7 @@
 .field select:focus,
 .field textarea:focus {
   outline: none;
-  border-color: var(--navy);
+  border-color: var(--heading);
   box-shadow: 0 0 0 3px rgba(14, 77, 58, 0.15);
 }
 .field input[aria-invalid="true"],
@@ -73,7 +73,7 @@
   padding: 14px 16px;
   border-radius: 14px;
   background: var(--cyan);
-  color: var(--navy);
+  color: var(--heading);
   font-weight: 500;
 }
 .aside {
@@ -100,7 +100,7 @@ a.detail:hover {
   color: var(--blue);
   display: grid;
   place-items: center;
-  color: var(--navy);
+  color: var(--heading);
   margin-bottom: 6px;
 }
 .detailTitle {
@@ -130,7 +130,7 @@ a.detail:hover {
 }
 .social:hover {
   background: var(--navy);
-  color: var(--white);
+  color: #ffffff;
 }
 @media (min-width: 768px) {
   .row {

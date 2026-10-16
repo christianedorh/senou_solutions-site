@@ -168,7 +168,7 @@ export const pagesEn = {
     pill: "Legal",
     title: ["Terms", "of use"],
     intro: "The terms of use of senousolutions.com and legal information about its publisher.",
-    updated: "Last updated: [À VALIDER : date]",
+    updated: "Last updated:",
     sections: [
       {
         id: "purpose",
@@ -183,9 +183,9 @@ export const pagesEn = {
         title: "2. Publisher",
         paragraphs: ["The Site is published by SENOU Solutions, headquartered in Nyekonakpoe, Lomé, Togo."],
         bullets: [
-          "Tax ID (NIF): [À VALIDER : copy from invoice]",
-          "Trade register (RCCM): [À VALIDER : copy from invoice]",
-          "Publication director: [À VALIDER : name and position]",
+          "Tax ID (NIF): 1001750442",
+          "Trade register (RCCM): TG-LFW-01-2021-A10-03260",
+          "Publication director: Senou EDORH",
           "Contact: contact@senousolutions.com",
         ],
       },
@@ -247,13 +247,13 @@ export const pagesEn = {
     pill: "Legal",
     title: ["Privacy", "policy"],
     intro: "What data we receive when you contact us, why, and how we protect it.",
-    updated: "Last updated: [À VALIDER : date]",
+    updated: "Last updated:",
     sections: [
       {
         id: "controller",
         title: "1. Data controller",
         paragraphs: [
-          "The data controller is SENOU Solutions, Nyekonakpoe, Lomé, Togo (NIF: [À VALIDER], RCCM: [À VALIDER]). For any question: contact@senousolutions.com.",
+          "The data controller is SENOU Solutions, Nyekonakpoe, Lomé, Togo (NIF: 1001750442, RCCM: TG-LFW-01-2021-A10-03260). For any question: contact@senousolutions.com.",
         ],
       },
       {
@@ -287,7 +287,7 @@ export const pagesEn = {
         id: "cookies",
         title: "5. Cookies and local storage",
         paragraphs: [
-          "The Site uses no advertising cookies and no audience measurement tool. It only stores in your browser your display preference (light or white background) and whether the opening animation has already been shown. This information is not sent to us. [À VALIDER : update if an analytics tool is added]",
+          "The Site uses no advertising cookies and no audience measurement tool. It only stores in your browser your display preference (light or dark mode) and whether the opening animation has already been shown. This information is not sent to us. [À VALIDER : update if an analytics tool is added]",
         ],
       },
       {

@@ -18,7 +18,7 @@
 .big {
   max-width: 34ch;
   font-weight: 500;
-  color: var(--mist);
+  color: #cfe3fb;
 }
 .steps {
   position: relative;

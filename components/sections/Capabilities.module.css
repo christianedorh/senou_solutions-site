@@ -190,7 +190,7 @@
   height: 40px;
   border-radius: 12px;
   background: var(--paper-2);
-  color: var(--navy);
+  color: var(--heading);
   display: grid;
   place-items: center;
 }

@@ -86,7 +86,7 @@
   height: 100%;
 }
 .channelLink:hover .channelText {
-  color: var(--navy);
+  color: var(--heading);
 }
 .channelIcon {
   width: 40px;
@@ -95,7 +95,7 @@
   background: var(--paper-2);
   display: grid;
   place-items: center;
-  color: var(--navy);
+  color: var(--heading);
   margin-bottom: 6px;
 }
 .channelTitle {

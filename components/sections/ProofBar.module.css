@@ -1,6 +1,6 @@
 .bar {
   background: var(--paper-2);
-  border-block: 1px solid rgba(11, 18, 32, 0.08);
+  border-block: 1px solid var(--line-strong);
   padding: 44px 0 52px;
 }
 .row {

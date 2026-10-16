@@ -17,7 +17,8 @@ export const fr = {
     ],
     cta: "Démarrer un projet",
     lang: ["FR", "EN"],
-    theme: { toWhite: "Passer au fond blanc", toPaper: "Passer au fond clair" },
+    theme: { toDark: "Passer en mode sombre", toLight: "Passer en mode clair" },
+    toTop: "Retour en haut de page",
   },
   hero: {
     pill: "Fintech et solutions digitales · Lomé, Togo",

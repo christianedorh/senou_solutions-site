@@ -82,7 +82,7 @@
 }
 .channelArrow {
   flex: none;
-  color: var(--mist);
+  color: #cfe3fb;
 }
 @media (min-width: 1024px) {
   .grid {

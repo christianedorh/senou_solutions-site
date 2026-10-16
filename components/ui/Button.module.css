@@ -13,7 +13,7 @@
 }
 .primary {
   background: var(--blue);
-  color: var(--white);
+  color: #ffffff;
   box-shadow: 0 10px 24px -12px rgba(31, 111, 224, 0.7);
 }
 .primary:hover {

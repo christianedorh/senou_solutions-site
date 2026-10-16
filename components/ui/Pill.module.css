@@ -14,11 +14,11 @@
 }
 .mist {
   background: var(--mist);
-  color: var(--navy);
+  color: var(--heading);
 }
 .cyan {
   background: rgba(31, 181, 240, 0.16);
-  color: var(--navy);
+  color: var(--heading);
 }
 .paper {
   background: var(--paper-2);
@@ -26,5 +26,5 @@
 }
 .dark {
   background: rgba(255, 255, 255, 0.08);
-  color: var(--mist);
+  color: #cfe3fb;
 }
