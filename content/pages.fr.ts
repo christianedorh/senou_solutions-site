@@ -85,7 +85,7 @@ export const pagesFr = {
           { q: "Quels services proposez-vous ?", a: "Des plateformes web, des applications mobiles, l'intégration de solutions de paiement, du conseil et de la consultation digitale, du marketing digital et de la représentation commerciale." },
           { q: "Pour quels types de clients ?", a: "Des PME et des grands groupes, au Togo et à l'international." },
           { q: "Intervenez-vous comme prestataire ou comme consultant ?", a: "Les deux, selon votre besoin : nous pouvons construire la solution ou vous conseiller avant de décider." },
-          { q: "Proposez-vous des services SMS ?", a: "Oui. Nous disposons des agréments de l'ARCEP pour les services SMS." },
+          { q: "Proposez-vous des services SMS ?", a: "Oui. Nous proposons des solutions d'envoi de SMS." },
         ],
       },
       {

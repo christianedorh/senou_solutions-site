@@ -10,7 +10,6 @@ Recherchez `À VALIDER` dans `content/` et `components/` pour retrouver chaque p
 
 ## Nouveaux contenus (octobre 2026)
 - Services « Consultation », « Marketing digital » et « Représentation commerciale » : textes provisoires à valider (et zones couvertes pour la représentation).
-- Partenaire SPARK CORPORATION : logo à fournir (`PARTNER_LOGOS` dans `content/media.ts`). En attendant, le nom est affiché.
 - Réalisations : logos et captures récupérés sur les sites publics des clients. Accord de chaque client pour l'affichage de son logo : confirmé par SENOU Solutions (12/10/2026). Les captures montrent des photos de personnes issues des sites clients.
 - « Gestion de pressings » et « Stock et ventes » : plateformes privées, sans capture publique. Fournir des captures anonymisées si vous souhaitez les montrer.
 
@@ -23,5 +22,4 @@ Recherchez `À VALIDER` dans `content/` et `components/` pour retrouver chaque p
 - Un bandeau « à faire relire par un juriste » s'affiche en haut des deux pages légales : le retirer dans `components/pages/LegalDocument.tsx` une fois les textes validés.
 
 ## Divers
-- Le numéro court attribué par l'ARCEP n'est volontairement pas affiché.
 - Formulaire de contact : il ouvre la messagerie du visiteur (mailto) vers contact@senousolutions.com. Un envoi côté serveur pourra être branché plus tard.

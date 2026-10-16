@@ -47,6 +47,10 @@
   object-fit: contain;
   transition: filter 500ms var(--ease-out-expo), opacity 500ms var(--ease-out-expo), transform 600ms var(--ease-out-expo);
 }
+/* Logo fourni en JPG (fond clair opaque) */
+.logoOpaque {
+  border-radius: 8px;
+}
 .tileLink:hover .logo {
   transform: scale(1.04);
 }

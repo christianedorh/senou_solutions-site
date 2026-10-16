@@ -21,7 +21,7 @@ export const fr = {
   },
   hero: {
     pill: "Fintech et solutions digitales · Lomé, Togo",
-    titleLines: ["Le digital sur mesure,", "livré à distance."],
+    titleLines: ["Le digital sur mesure, simple et utile,", "avec vous où que vous soyez."],
     before: "Nous construisons",
     rotating: ["vos plateformes web", "vos applications mobiles", "vos paiements intégrés"],
     text: "SENOU Solutions conçoit et livre des solutions digitales à valeur ajoutée pour les PME et les grands groupes, au Togo comme à l'international. Prestataire ou consultant, selon votre besoin.",
@@ -50,7 +50,7 @@ export const fr = {
     tiles: {
       remote: { title: "100 % à distance", text: "Nous travaillons efficacement avec des clients du monde entier, sans déplacements inutiles." },
       reactive: { title: "Réactivité", text: "Nous anticipons vos problèmes et lançons la solution dès que le cadre est posé." },
-      sms: { title: "Agréments ARCEP", text: "Nous disposons des agréments de l'ARCEP pour les services SMS." },
+      sms: { title: "Services SMS", text: "Des solutions d'envoi de SMS pour vos communications avec vos clients." },
       payments: { title: "Paiements intégrés", text: "Des parcours de paiement intégrés directement dans vos plateformes." },
       platforms: { title: "Plateformes de gestion", text: "Stock et ventes, pressings, suivi agropastoral : des outils métier concrets." },
       flexible: { title: "Méthode souple", text: "Un cadre clair, mais assez de souplesse pour s'adapter à votre réalité." },
@@ -74,8 +74,8 @@ export const fr = {
     items: [
       { name: "CentralResource", url: "https://centralresource.net", tag: "Plateforme web", text: "Plateforme avec espaces administrateur, client et prestataire." },
       { name: "GESFARM", url: "https://gesfarm-frontend.vercel.app/", tag: "Agritech", text: "Plateforme de gestion et de suivi agropastoral." },
-      { name: "Gestion de pressings", url: null, tag: "Plateforme de gestion", text: "Plateforme de gestion de multipressings." },
-      { name: "Stock et ventes", url: null, tag: "Plateforme de gestion", text: "Plateforme de gestion de stock et de vente." },
+      { name: "Gestion de pressings", url: "https://pressing.senousolutions.com/login", tag: "Plateforme de gestion", text: "Plateforme de gestion de multipressings." },
+      { name: "Stock et ventes", url: "https://teststock.senousolutions.com/signin", tag: "Plateforme de gestion", text: "Plateforme de gestion de stock et de vente." },
       { name: "KDA PRO EVENTS", url: "https://kdaproevents.com", tag: "Site web", text: "Présence en ligne de KDA PRO EVENTS." }, // À VALIDER : description
       { name: "Africa Ascent", url: "https://africaascent.org", tag: "Site web", text: "Site de la Fondation Africa Ascent." }, // À VALIDER : description
       { name: "KA Events", url: "https://kaevents.net", tag: "Site web", text: "Site événementiel." }, // À VALIDER : description
@@ -123,7 +123,7 @@ export const fr = {
     whatsapp: "https://wa.me/22890959953", // À VALIDER : WhatsApp actif sur ce numéro ?
   },
   footer: {
-    tagline: "Le digital sur mesure, livré à distance.",
+    tagline: "Le digital sur mesure, simple et utile, avec vous où que vous soyez.",
     columns: [
       { title: "Entreprise", links: [{ label: "Services", href: "/#services" }, { label: "Méthode", href: "/#methode" }, { label: "Réalisations", href: "/#realisations" }, { label: "Partenaires", href: "/#partenaires" }, { label: "FAQ", href: "/faq" }] },
       { title: "Légal", links: [{ label: "Conditions générales", href: "/conditions-generales" }, { label: "Politique de confidentialité", href: "/politique-de-confidentialite" }] },

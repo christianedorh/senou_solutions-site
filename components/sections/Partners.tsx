@@ -49,7 +49,7 @@ export function Partners() {
               <>
                 <span className={s.logoBox}>
                   {logo ? (
-                    <Image src={logo} alt={`Logo ${it.name}`} fill sizes="240px" className={s.logo} />
+                    <Image src={logo} alt={`Logo ${it.name}`} fill sizes="240px" className={`${s.logo} ${logo.endsWith(".jpg") ? s.logoOpaque : ""}`} />
                   ) : (
                     <span className={s.wordmark}>{it.name}</span>
                   )}

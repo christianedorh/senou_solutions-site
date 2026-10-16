@@ -83,7 +83,7 @@ export const pagesEn = {
           { q: "What services do you offer?", a: "Web platforms, mobile apps, payment integration, digital consulting, digital marketing and business representation." },
           { q: "Who are your clients?", a: "SMEs and large groups, in Togo and abroad." },
           { q: "Do you work as a contractor or as a consultant?", a: "Both, depending on your needs: we can build the solution or advise you before you decide." },
-          { q: "Do you offer SMS services?", a: "Yes. We hold ARCEP approvals for SMS services." },
+          { q: "Do you offer SMS services?", a: "Yes. We offer SMS sending solutions." },
         ],
       },
       {

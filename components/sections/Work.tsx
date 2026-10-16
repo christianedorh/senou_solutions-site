@@ -21,7 +21,7 @@ export function Work() {
 
   // Projets publics (avec site et captures) d'abord, plateformes privées ensuite.
   const publicProjects: WorkProject[] = [];
-  const privateProjects: { name: string; tag: string; text: string }[] = [];
+  const privateProjects: { name: string; tag: string; text: string; url: string | null }[] = [];
   for (const it of w.items) {
     const media = WORK_MEDIA[mediaKey(it)];
     if (it.url && media) publicProjects.push({ name: it.name, tag: it.tag, text: it.text, url: it.url, media });
@@ -98,9 +98,19 @@ export function Work() {
                     <h3 className={s.name}>{pr.name}</h3>
                     <p className={s.text}>{pr.text}</p>
                   </div>
-                  <span className={s.privateNote}>
-                    <LockSimple size={14} aria-hidden /> {p.ui.workPrivateNote}
-                  </span>
+                  {pr.url ? (
+                    <a href={pr.url} target="_blank" rel="noopener noreferrer" className={s.link}>
+                      <span className={s.host}>{host(pr.url)}</span>
+                      <ArrowUpRight size={16} weight="bold" aria-hidden />
+                      <span className="sr-only">
+                        {p.ui.workVisit} {p.ui.workOpens}
+                      </span>
+                    </a>
+                  ) : (
+                    <span className={s.privateNote}>
+                      <LockSimple size={14} aria-hidden /> {p.ui.workPrivateNote}
+                    </span>
+                  )}
                 </div>
               </article>
             </motion.li>

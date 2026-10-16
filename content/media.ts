@@ -29,7 +29,7 @@ export const PARTNER_LOGOS: Record<string, string | null> = {
   LAFRICAMOBILE: "/logos/lafricamobile.png",
   "https://kdaproevents.com": "/logos/kdaproevents.png",
   "https://africaascent.org": "/logos/africaascent.png",
-  "SPARK CORPORATION": null, // À VALIDER : logo de SPARK CORPORATION à fournir
+  "SPARK CORPORATION": "/logos/sparkcorporation.jpg",
 };
 
 export const mediaKey = (item: { url: string | null; name: string }) => item.url ?? item.name;

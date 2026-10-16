@@ -20,7 +20,7 @@ export const en = {
   },
   hero: {
     pill: "Fintech and digital solutions · Lomé, Togo",
-    titleLines: ["Custom digital solutions,", "delivered remotely."],
+    titleLines: ["Custom digital, simple and useful,", "with you wherever you are."],
     before: "We build",
     rotating: ["your web platforms", "your mobile apps", "your integrated payments"],
     text: "SENOU Solutions designs and delivers high-value digital solutions for SMEs and large groups, in Togo and abroad. Service provider or consultant, depending on your need.",
@@ -49,7 +49,7 @@ export const en = {
     tiles: {
       remote: { title: "100% remote", text: "We work efficiently with clients worldwide, without needless travel." },
       reactive: { title: "Responsiveness", text: "We anticipate your problems and start on the solution as soon as the scope is set." },
-      sms: { title: "ARCEP approvals", text: "We hold ARCEP approvals for SMS services." },
+      sms: { title: "SMS services", text: "SMS sending solutions for your communications with your customers." },
       payments: { title: "Integrated payments", text: "Payment flows built directly into your platforms." },
       platforms: { title: "Management platforms", text: "Stock and sales, laundries, agropastoral monitoring: practical business tools." },
       flexible: { title: "Flexible method", text: "A clear framework, with enough flexibility to fit your reality." },
@@ -73,8 +73,8 @@ export const en = {
     items: [
       { name: "CentralResource", url: "https://centralresource.net", tag: "Web platform", text: "Platform with admin, client and service-provider spaces." },
       { name: "GESFARM", url: "https://gesfarm-frontend.vercel.app/", tag: "Agritech", text: "Agropastoral management and monitoring platform." },
-      { name: "Laundry management", url: null, tag: "Management platform", text: "Multi-laundry management platform." },
-      { name: "Stock and sales", url: null, tag: "Management platform", text: "Stock and sales management platform." },
+      { name: "Laundry management", url: "https://pressing.senousolutions.com/login", tag: "Management platform", text: "Multi-laundry management platform." },
+      { name: "Stock and sales", url: "https://teststock.senousolutions.com/signin", tag: "Management platform", text: "Stock and sales management platform." },
       { name: "KDA PRO EVENTS", url: "https://kdaproevents.com", tag: "Website", text: "Online presence for KDA PRO EVENTS." }, // À VALIDER : description
       { name: "Africa Ascent", url: "https://africaascent.org", tag: "Website", text: "Website of the Africa Ascent Foundation." }, // À VALIDER : description
       { name: "KA Events", url: "https://kaevents.net", tag: "Website", text: "Events website." }, // À VALIDER : description
@@ -121,7 +121,7 @@ export const en = {
     whatsapp: "https://wa.me/22890959953", // À VALIDER : WhatsApp actif sur ce numéro ?
   },
   footer: {
-    tagline: "Custom digital solutions, delivered remotely.",
+    tagline: "Custom digital, simple and useful, with you wherever you are.",
     columns: [
       { title: "Company", links: [{ label: "Services", href: "/en/#services" }, { label: "Method", href: "/en/#methode" }, { label: "Work", href: "/en/#realisations" }, { label: "Partners", href: "/en/#partenaires" }, { label: "FAQ", href: "/en/faq" }] },
       { title: "Legal", links: [{ label: "Terms", href: "/en/terms" }, { label: "Privacy policy", href: "/en/privacy" }] },
