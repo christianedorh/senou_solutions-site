@@ -26,7 +26,6 @@ export const pagesEn = {
     footerFollow: "Follow us",
     footerAddress: "Address",
     toc: "Contents",
-    legalReview: "Draft under review: this text must be reviewed by a lawyer before going live.",
     legalAsk: "A question about this document? Write to us from the",
     legalAskLink: "Contact page",
     faqSearch: "Search a question",

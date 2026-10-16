@@ -19,7 +19,7 @@ Recherchez `À VALIDER` dans `content/` et `components/` pour retrouver chaque p
 - Durée de conservation des données, liste des prestataires techniques, pays d'hébergement.
 - Références légales togolaises (loi n° 2019-014) et autorité de protection des données : à confirmer.
 - Juridiction compétente.
-- Un bandeau « à faire relire par un juriste » s'affiche en haut des deux pages légales : le retirer dans `components/pages/LegalDocument.tsx` une fois les textes validés.
+- Le bandeau « à relire par un juriste » a été retiré des deux pages légales.
 
 ## Divers
 - Formulaire de contact : il ouvre la messagerie du visiteur (mailto) vers contact@senousolutions.com. Un envoi côté serveur pourra être branché plus tard.

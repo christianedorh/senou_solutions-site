@@ -28,7 +28,6 @@ export const pagesFr = {
     footerFollow: "Nous suivre",
     footerAddress: "Adresse",
     toc: "Sommaire",
-    legalReview: "Document en cours de validation : ce texte doit être relu par un juriste avant mise en ligne.",
     legalAsk: "Une question sur ce document ? Écrivez-nous depuis la page",
     legalAskLink: "Nous contacter",
     faqSearch: "Rechercher une question",

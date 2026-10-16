@@ -1,7 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
 import { Reveal } from "@/components/ui/Reveal";
-import { WarningCircle } from "@phosphor-icons/react";
 import { useI18n } from "@/components/providers/I18n";
 import type { LegalSection } from "@/content/pages.fr";
 import s from "./LegalDocument.module.css";
@@ -42,9 +41,6 @@ export function LegalDocument({ sections, updated }: { sections: readonly LegalS
         </ol>
       </nav>
       <article className={s.doc}>
-        <p className={s.review} role="note">
-          <WarningCircle size={20} weight="fill" aria-hidden /> {p.ui.legalReview}
-        </p>
         <p className={s.updated}>{updated} {updatedOn}</p>
         {sections.map((sec, i) => (
           <Reveal key={sec.id} delay={Math.min(i, 3) * 0.04}>
