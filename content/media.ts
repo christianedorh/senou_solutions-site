@@ -17,6 +17,8 @@ const shots = (slug: string, n: number) => Array.from({ length: n }, (_, i) => `
 export const WORK_MEDIA: Record<string, WorkMedia> = {
   "https://centralresource.net": { logo: "/logos/centralresource.png", shots: shots("centralresource", 3), mobile: "/work/centralresource/mobile.jpg" },
   "https://gesfarm-frontend.vercel.app/": { logo: "/logos/gesfarm.svg", shots: shots("gesfarm", 1), mobile: "/work/gesfarm/mobile.jpg" },
+  "https://pressing.senousolutions.com/login": { logo: "/brand/senou-icon.svg", shots: shots("pressing", 1), mobile: "/work/pressing/mobile.jpg" },
+  "https://teststock.senousolutions.com/signin": { logo: "/brand/senou-icon.svg", shots: shots("stock", 1), mobile: "/work/stock/mobile.jpg" },
   "https://kdaproevents.com": { logo: "/logos/kdaproevents.png", shots: shots("kdaproevents", 3), mobile: "/work/kdaproevents/mobile.jpg" },
   "https://africaascent.org": { logo: "/logos/africaascent.png", shots: shots("africaascent", 3), mobile: "/work/africaascent/mobile.jpg" },
   "https://kaevents.net": { logo: "/logos/kaevents.png", shots: shots("kaevents", 3), mobile: "/work/kaevents/mobile.jpg" },
