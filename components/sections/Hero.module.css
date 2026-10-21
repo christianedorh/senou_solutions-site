@@ -37,8 +37,10 @@
   color: var(--ink);
 }
 .rotBox {
+  position: relative;
   display: inline-block;
-  perspective: 800px;
+  overflow: hidden;
+  vertical-align: bottom;
   background: var(--navy);
   color: #ffffff;
   padding: 0.05em 0.4em;
@@ -47,7 +49,6 @@
 }
 .rot {
   display: inline-block;
-  transform-origin: 50% 50% -0.3em;
 }
 .text {
   max-width: 50ch;

@@ -1,3 +1,7 @@
+/* Suit directement les services sur le même fond : on évite le double espacement */
+.section {
+  padding-top: 0;
+}
 .title {
   margin-top: 20px;
 }
@@ -228,9 +232,14 @@
     align-items: center;
     min-height: 200px;
   }
+  /* La grande tuile occupait 2 × 2 cases pour un petit globe en coin : on le centre et on l'agrandit */
   .globe {
-    width: 260px;
-    height: 260px;
+    width: 300px;
+    height: 300px;
+    justify-self: center;
+    align-self: center;
+    margin: 0;
+    transform: scale(1.25);
   }
 }
 /* Espace réservé aux décors placés en haut des tuiles, pour ne jamais chevaucher le texte */

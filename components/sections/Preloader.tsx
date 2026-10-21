@@ -7,7 +7,7 @@ import { BRAND_ICON, BRAND_VIEWBOX, BRAND_WORD } from "@/components/ui/brandPath
 import s from "./Preloader.module.css";
 
 /** Durée de la séquence avant la sortie, en millisecondes. */
-const DURATION = 2600;
+const DURATION = 1600;
 type Bezier = [number, number, number, number];
 const SETTLE: Bezier = [0.22, 1, 0.36, 1];
 const OVERSHOOT: Bezier = [0.34, 1.56, 0.64, 1];
@@ -58,7 +58,7 @@ export function Preloader({ onDone }: { onDone: () => void }) {
           exit={
             reduced
               ? { opacity: 0, transition: { duration: 0.3 } }
-              : { clipPath: "inset(0 0 100% 0)", transition: { duration: 1.1, ease: [0.76, 0, 0.24, 1] } }
+              : { clipPath: "inset(0 0 100% 0)", transition: { duration: 0.75, ease: [0.76, 0, 0.24, 1] } }
           }
         >
           <span className={`${s.orb} ${s.orbCyan}`} />
@@ -66,19 +66,19 @@ export function Preloader({ onDone }: { onDone: () => void }) {
 
           <div className={s.lockup}>
             <svg className={s.logo} viewBox={BRAND_VIEWBOX}>
-              <motion.g {...enter(0.1, { y: "4%", scale: 0.82 }, 0.9, OVERSHOOT)} style={{ transformBox: "fill-box", transformOrigin: "center" }}>
+              <motion.g {...enter(0.05, { y: "4%", scale: 0.82 }, 0.7, OVERSHOOT)} style={{ transformBox: "fill-box", transformOrigin: "center" }}>
                 {BRAND_ICON.map((pt, i) => (
                   <path key={i} fill={pt.fill} d={pt.d} fillRule={pt.rule} />
                 ))}
               </motion.g>
-              <motion.g {...enter(0.55, { x: "-2.4%", scale: 0.985 })} style={{ transformBox: "fill-box", transformOrigin: "left center" }}>
+              <motion.g {...enter(0.3, { x: "-2.4%", scale: 0.985 }, 0.6)} style={{ transformBox: "fill-box", transformOrigin: "left center" }}>
                 {BRAND_WORD.map((pt, i) => (
                   <path key={i} fill={pt.fill} d={pt.d} fillRule={pt.rule} />
                 ))}
               </motion.g>
             </svg>
-            <motion.span className={s.rule} {...enter(1.1, { scaleX: 0 }, 0.7)} />
-            <motion.p className={s.tagline} {...enter(1.25, { y: "60%" }, 0.65)}>
+            <motion.span className={s.rule} {...enter(0.65, { scaleX: 0 }, 0.5)} />
+            <motion.p className={s.tagline} {...enter(0.75, { y: "60%" }, 0.5)}>
               {p.ui.brandTagline[0]} <em>{p.ui.brandTagline[1]}</em>
             </motion.p>
           </div>

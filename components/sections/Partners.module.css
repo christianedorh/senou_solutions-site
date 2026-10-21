@@ -28,11 +28,17 @@
   box-shadow: inset 0 0 0 1px var(--line);
   transition: background 400ms var(--ease-out-expo), box-shadow 400ms var(--ease-out-expo), transform 500ms var(--ease-out-expo);
 }
-.tileLink:hover,
 .tileLink:focus-visible {
   background: var(--white);
   box-shadow: inset 0 0 0 1px var(--line), var(--shadow-lift);
   transform: translateY(-4px);
+}
+@media (hover: hover) and (pointer: fine) {
+  .tileLink:hover {
+    background: var(--white);
+    box-shadow: inset 0 0 0 1px var(--line), var(--shadow-lift);
+    transform: translateY(-4px);
+  }
 }
 .logoBox {
   position: relative;
@@ -51,8 +57,10 @@
 .logoOpaque {
   border-radius: 8px;
 }
-.tileLink:hover .logo {
-  transform: scale(1.04);
+@media (hover: hover) and (pointer: fine) {
+  .tileLink:hover .logo {
+    transform: scale(1.04);
+  }
 }
 /* Bandeau des clients : logos en gris, couleur au survol */
 .clientLogo .logo {
@@ -70,8 +78,10 @@
   opacity: 0.7;
   transition: opacity 400ms var(--ease-out-expo);
 }
-.tile:hover .wordmark {
-  opacity: 1;
+@media (hover: hover) and (pointer: fine) {
+  .tile:hover .wordmark {
+    opacity: 1;
+  }
 }
 .caption {
   display: inline-flex;
@@ -89,10 +99,15 @@
   transform: translate(-4px, 4px);
   transition: opacity var(--dur-micro), transform 300ms var(--ease-out-expo);
 }
-.tileLink:hover .arrow,
 .tileLink:focus-visible .arrow {
   opacity: 1;
   transform: none;
+}
+@media (hover: hover) and (pointer: fine) {
+  .tileLink:hover .arrow {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 /* Bandeau des clients */
@@ -122,8 +137,10 @@
   padding-right: clamp(40px, 6vw, 88px);
   animation: scroll 50s linear infinite;
 }
-.strip:hover .track {
-  animation-play-state: paused;
+@media (hover: hover) and (pointer: fine) {
+  .strip:hover .track {
+    animation-play-state: paused;
+  }
 }
 .clientLogo {
   position: relative;
@@ -131,10 +148,12 @@
   height: 64px;
   flex: none;
 }
-.clientLogo:hover .logo {
-  transform: none;
-  filter: none;
-  opacity: 1;
+@media (hover: hover) and (pointer: fine) {
+  .clientLogo:hover .logo {
+    transform: none;
+    filter: none;
+    opacity: 1;
+  }
 }
 @keyframes scroll {
   to {
@@ -232,4 +251,9 @@
     right: -6%;
     top: 90px;
   }
+}
+[data-theme="dark"] .tile .logoBox {
+  padding: 10px 14px;
+  border-radius: 14px;
+  background: #f5f8fc;
 }

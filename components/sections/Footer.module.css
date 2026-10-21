@@ -42,8 +42,10 @@
 .link {
   color: rgba(245, 248, 252, 0.8);
 }
-.link:hover {
-  color: #ffffff;
+@media (hover: hover) and (pointer: fine) {
+  .link:hover {
+    color: #ffffff;
+  }
 }
 .socials {
   display: flex;
@@ -58,8 +60,10 @@
   background: rgba(255, 255, 255, 0.08);
   transition: background var(--dur-micro);
 }
-.social:hover {
-  background: var(--navy);
+@media (hover: hover) and (pointer: fine) {
+  .social:hover {
+    background: var(--navy);
+  }
 }
 .legal {
   display: flex;
@@ -71,8 +75,10 @@
   font-size: 14px;
   color: rgba(245, 248, 252, 0.6);
 }
-.legal a:hover {
-  color: #ffffff;
+@media (hover: hover) and (pointer: fine) {
+  .legal a:hover {
+    color: #ffffff;
+  }
 }
 .giant {
   overflow: hidden;

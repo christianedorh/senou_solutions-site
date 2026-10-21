@@ -31,9 +31,11 @@
   border-left: 2px solid transparent;
   transition: color var(--dur-micro), background var(--dur-micro);
 }
-.tocLink:hover {
-  background: var(--paper-2);
-  color: var(--ink);
+@media (hover: hover) and (pointer: fine) {
+  .tocLink:hover {
+    background: var(--paper-2);
+    color: var(--ink);
+  }
 }
 .tocOn {
   color: var(--heading);

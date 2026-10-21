@@ -24,9 +24,11 @@
   overflow: hidden;
   transition: transform 500ms var(--ease-out-expo), box-shadow 500ms var(--ease-out-expo);
 }
-.card:hover {
-  transform: translateY(-4px);
-  box-shadow: inset 0 0 0 1px var(--line), var(--shadow-lift);
+@media (hover: hover) and (pointer: fine) {
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: inset 0 0 0 1px var(--line), var(--shadow-lift);
+  }
 }
 
 /* Vignette : capture du site, ouvre la galerie */
@@ -44,8 +46,10 @@
   object-position: top;
   transition: transform 900ms var(--ease-out-expo);
 }
-.card:hover .shotImg {
-  transform: scale(1.045);
+@media (hover: hover) and (pointer: fine) {
+  .card:hover .shotImg {
+    transform: scale(1.045);
+  }
 }
 .shotVeil {
   position: absolute;
@@ -72,14 +76,23 @@
   opacity: 0;
   transition: transform 500ms var(--ease-out-expo), opacity 400ms var(--ease-out-expo);
 }
-.shot:hover .shotVeil,
 .shot:focus-visible .shotVeil {
   opacity: 1;
 }
-.shot:hover .view,
+@media (hover: hover) and (pointer: fine) {
+  .shot:hover .shotVeil {
+    opacity: 1;
+  }
+}
 .shot:focus-visible .view {
   opacity: 1;
   transform: translate(-50%, 0);
+}
+@media (hover: hover) and (pointer: fine) {
+  .shot:hover .view {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
 }
 
 .body {
@@ -137,8 +150,10 @@
   color: var(--heading);
   transition: color var(--dur-micro);
 }
-.link:hover {
-  color: var(--blue);
+@media (hover: hover) and (pointer: fine) {
+  .link:hover {
+    color: var(--blue);
+  }
 }
 .host {
   overflow: hidden;
@@ -200,8 +215,10 @@
   background: var(--grad-brand);
   transition: transform 400ms var(--ease-out-expo);
 }
-.cta:hover .ctaArrow {
-  transform: translateX(6px);
+@media (hover: hover) and (pointer: fine) {
+  .cta:hover .ctaArrow {
+    transform: translateX(6px);
+  }
 }
 
 @media (min-width: 640px) {

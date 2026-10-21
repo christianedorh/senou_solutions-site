@@ -76,6 +76,19 @@
 html {
   scroll-behavior: auto;
   -webkit-text-size-adjust: 100%;
+  /* Mobile : pas de flash gris au toucher (chaque élément cliquable a son propre :active) */
+  -webkit-tap-highlight-color: transparent;
+}
+/* Mobile : clic immédiat (pas d'attente du double-tap) et pas de sélection du libellé au appui long */
+a,
+button,
+[role="button"] {
+  touch-action: manipulation;
+}
+button,
+[role="button"] {
+  user-select: none;
+  -webkit-user-select: none;
 }
 body {
   margin: 0;

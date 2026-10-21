@@ -1,6 +1,6 @@
 .bar {
   position: fixed;
-  top: 16px;
+  top: calc(16px + env(safe-area-inset-top, 0px));
   left: 50%;
   z-index: 800;
   width: min(100% - 2 * var(--gutter), var(--container));
@@ -51,8 +51,10 @@
   transform-origin: left;
   transition: transform var(--dur-micro) var(--ease-out-expo);
 }
-.link:hover::after {
-  transform: scaleX(1);
+@media (hover: hover) and (pointer: fine) {
+  .link:hover::after {
+    transform: scaleX(1);
+  }
 }
 .right {
   display: flex;
@@ -77,8 +79,10 @@
   color: var(--ink-2);
   transition: color var(--dur-micro);
 }
-.langOff:hover {
-  color: var(--ink);
+@media (hover: hover) and (pointer: fine) {
+  .langOff:hover {
+    color: var(--ink);
+  }
 }
 .langSep {
   opacity: 0.4;
@@ -102,7 +106,7 @@
   z-index: 790;
   background: var(--navy);
   color: #ffffff;
-  padding: 120px var(--gutter) 40px;
+  padding: 120px var(--gutter) calc(40px + env(safe-area-inset-bottom, 0px));
   display: flex;
   flex-direction: column;
   justify-content: space-between;

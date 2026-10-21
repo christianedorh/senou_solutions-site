@@ -24,7 +24,7 @@ export function Capabilities() {
   const slow = (duration: number) => (reduced ? {} : { duration, repeat: Infinity, ease: "linear" as const });
 
   return (
-    <section className="section" aria-labelledby="capabilities-title">
+    <section className={`section ${s.section}`} aria-labelledby="capabilities-title">
       <div className="container">
         <span className="eyebrow">{c.pill}</span>
         <h2 id="capabilities-title" className={`h2 ${s.title}`}>
@@ -72,7 +72,7 @@ export function Capabilities() {
                 <motion.span
                   key={k}
                   className={`${s.bubble} ${k ? s.bubbleAlt : ""}`}
-                  initial={{ scale: 0, opacity: 0 }}
+                  initial={{ scale: 0.6, opacity: 0 }}
                   whileInView={{ scale: 1, opacity: 1 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.7, ease: EASE, delay: 0.4 + k * 0.35 }}
@@ -97,8 +97,8 @@ export function Capabilities() {
                 />
               </span>
               <motion.span
-                initial={{ scale: 0 }}
-                whileInView={{ scale: 1 }}
+                initial={{ scale: 0.6, opacity: 0 }}
+                whileInView={{ scale: 1, opacity: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, ease: EASE, delay: 1.5 }}
                 className={s.payCheck}

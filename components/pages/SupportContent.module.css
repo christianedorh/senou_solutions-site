@@ -85,8 +85,10 @@
   border-radius: var(--r-md);
   height: 100%;
 }
-.channelLink:hover .channelText {
-  color: var(--heading);
+@media (hover: hover) and (pointer: fine) {
+  .channelLink:hover .channelText {
+    color: var(--heading);
+  }
 }
 .channelIcon {
   width: 40px;

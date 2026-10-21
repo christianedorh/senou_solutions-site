@@ -11,8 +11,10 @@
 .reverse {
   animation-direction: reverse;
 }
-.wrap:hover .track {
-  animation-play-state: paused;
+@media (hover: hover) and (pointer: fine) {
+  .wrap:hover .track {
+    animation-play-state: paused;
+  }
 }
 .item {
   display: inline-flex;

@@ -1,6 +1,6 @@
 .btn {
   position: fixed;
-  right: 14px;
+  right: calc(14px + env(safe-area-inset-right, 0px));
   top: 50%;
   z-index: 780;
   width: 40px;
@@ -17,10 +17,15 @@
   opacity: 0.85;
   transition: opacity var(--dur-micro), box-shadow var(--dur-micro);
 }
-.btn:hover,
 .btn:focus-visible {
   opacity: 1;
   box-shadow: 0 1px 0 rgba(11, 18, 32, 0.06), 0 16px 40px -12px rgba(11, 18, 32, 0.45);
+}
+@media (hover: hover) and (pointer: fine) {
+  .btn:hover {
+    opacity: 1;
+    box-shadow: 0 1px 0 rgba(11, 18, 32, 0.06), 0 16px 40px -12px rgba(11, 18, 32, 0.45);
+  }
 }
 .btn:focus-visible {
   outline: 2px solid var(--blue);

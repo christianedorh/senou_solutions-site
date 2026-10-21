@@ -44,15 +44,19 @@
   font-size: 14px;
   transition: background var(--dur-micro), color var(--dur-micro);
 }
-.tab:hover {
-  background: var(--cyan);
+@media (hover: hover) and (pointer: fine) {
+  .tab:hover {
+    background: var(--cyan);
+  }
 }
 .tabOn {
   background: var(--ink);
   color: var(--paper);
 }
-.tabOn:hover {
-  background: var(--ink);
+@media (hover: hover) and (pointer: fine) {
+  .tabOn:hover {
+    background: var(--ink);
+  }
 }
 .groups {
   display: grid;

@@ -71,20 +71,23 @@ export function Hero({ ready }: { ready: boolean }) {
           </h1>
           <motion.p className={s.rotLine} aria-hidden {...fade(0.45)}>
             {h.before}{" "}
-            <span className={s.rotBox}>
+            {/* Le mot glisse verticalement dans une fenêtre masquée ; un léger flou fond l'ancien et le nouveau,
+                et la pastille s'ajuste à la largeur du mot au lieu de sauter. */}
+            <motion.span layout className={s.rotBox} transition={{ layout: { duration: 0.5, ease: EASE } }}>
               <AnimatePresence mode="popLayout" initial={false}>
                 <motion.span
                   key={i}
+                  layout="position"
                   className={s.rot}
-                  initial={{ rotateX: 90, opacity: 0 }}
-                  animate={{ rotateX: 0, opacity: 1 }}
-                  exit={{ rotateX: -90, opacity: 0 }}
-                  transition={{ duration: 0.7, ease: EASE }}
+                  initial={{ y: "105%", opacity: 0, filter: "blur(4px)" }}
+                  animate={{ y: "0%", opacity: 1, filter: "blur(0px)" }}
+                  exit={{ y: "-105%", opacity: 0, filter: "blur(4px)" }}
+                  transition={{ duration: 0.5, ease: EASE }}
                 >
                   {h.rotating[i]}
                 </motion.span>
               </AnimatePresence>
-            </span>
+            </motion.span>
           </motion.p>
           <motion.p className={`body-l ${s.text}`} {...fade(0.55)}>
             {h.text}

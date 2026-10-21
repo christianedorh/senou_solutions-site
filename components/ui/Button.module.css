@@ -16,24 +16,30 @@
   color: #ffffff;
   box-shadow: 0 10px 24px -12px rgba(31, 111, 224, 0.7);
 }
-.primary:hover {
-  background: #3b84ec;
+@media (hover: hover) and (pointer: fine) {
+  .primary:hover {
+    background: #3b84ec;
+  }
 }
 .navy {
   background: var(--navy);
   color: #ffffff;
 }
-.navy:hover {
-  background: var(--navy-2);
+@media (hover: hover) and (pointer: fine) {
+  .navy:hover {
+    background: var(--navy-2);
+  }
 }
 .ghost {
   background: transparent;
   color: var(--ink);
   box-shadow: inset 0 0 0 1.5px var(--ink);
 }
-.ghost:hover {
-  background: var(--ink);
-  color: var(--paper);
+@media (hover: hover) and (pointer: fine) {
+  .ghost:hover {
+    background: var(--ink);
+    color: var(--paper);
+  }
 }
 .inner {
   display: inline-flex;
@@ -45,7 +51,9 @@
   color: #ffffff;
   box-shadow: inset 0 0 0 1.5px rgba(245, 248, 252, 0.5);
 }
-.light:hover {
-  background: #ffffff;
-  color: var(--navy);
+@media (hover: hover) and (pointer: fine) {
+  .light:hover {
+    background: #ffffff;
+    color: var(--navy);
+  }
 }

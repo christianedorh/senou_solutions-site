@@ -75,8 +75,10 @@
   font-weight: 600;
   transition: background var(--dur-micro);
 }
-.visit:hover {
-  background: var(--blue);
+@media (hover: hover) and (pointer: fine) {
+  .visit:hover {
+    background: var(--blue);
+  }
 }
 .visitMobile {
   display: inline-flex;
@@ -92,8 +94,10 @@
   background: var(--paper-2);
   transition: background var(--dur-micro);
 }
-.close:hover {
-  background: var(--mist);
+@media (hover: hover) and (pointer: fine) {
+  .close:hover {
+    background: var(--mist);
+  }
 }
 
 .stage {
@@ -179,9 +183,11 @@
   box-shadow: var(--shadow-soft);
   transition: transform 300ms var(--ease-out-expo), background var(--dur-micro);
 }
-.arrow:hover {
-  background: #ffffff;
-  transform: scale(1.06);
+@media (hover: hover) and (pointer: fine) {
+  .arrow:hover {
+    background: #ffffff;
+    transform: scale(1.06);
+  }
 }
 .prev {
   left: 12px;
@@ -226,8 +232,10 @@
   object-fit: cover;
   object-position: top;
 }
-.thumb:hover {
-  opacity: 0.85;
+@media (hover: hover) and (pointer: fine) {
+  .thumb:hover {
+    opacity: 0.85;
+  }
 }
 .thumbOn {
   opacity: 1;

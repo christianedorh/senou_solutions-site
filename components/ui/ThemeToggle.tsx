@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { motion } from "motion/react";
 import { useI18n } from "@/components/providers/I18n";
+import { THEME_COLORS } from "@/lib/metadata";
 import s from "./ThemeToggle.module.css";
 
 export type Theme = "light" | "dark";
@@ -18,6 +19,8 @@ export function applyTheme(theme: Theme) {
   root.classList.add("theme-switching");
   if (theme === "dark") root.dataset.theme = "dark";
   else delete root.dataset.theme;
+  // La barre d'état mobile suit le thème choisi, pas seulement celui du système.
+  document.querySelectorAll('meta[name="theme-color"]').forEach((m) => m.setAttribute("content", THEME_COLORS[theme]));
   try {
     localStorage.setItem(KEY, theme);
   } catch {}
@@ -33,8 +36,11 @@ export function ThemeToggle() {
   const [theme, setTheme] = useState<Theme>("light");
   const [mounted, setMounted] = useState(false);
   useEffect(() => {
-    setTheme(read());
+    const current = read();
+    setTheme(current);
     setMounted(true);
+    // Resynchronise la barre d'état si le thème mémorisé diffère de celui du système.
+    document.querySelectorAll('meta[name="theme-color"]').forEach((m) => m.setAttribute("content", THEME_COLORS[current]));
   }, []);
   const next: Theme = theme === "dark" ? "light" : "dark";
   const label = next === "dark" ? t.nav.theme.toDark : t.nav.theme.toLight;

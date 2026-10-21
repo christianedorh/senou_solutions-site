@@ -45,7 +45,7 @@
 .field textarea:focus {
   outline: none;
   border-color: var(--heading);
-  box-shadow: 0 0 0 3px rgba(14, 77, 58, 0.15);
+  box-shadow: 0 0 0 3px rgba(31, 111, 224, 0.2);
 }
 .field input[aria-invalid="true"],
 .field textarea[aria-invalid="true"] {
@@ -89,8 +89,10 @@
   border-radius: var(--r-md);
   transition: box-shadow var(--dur-micro);
 }
-a.detail:hover {
-  box-shadow: inset 0 0 0 1.5px var(--blue);
+@media (hover: hover) and (pointer: fine) {
+  a.detail:hover {
+    box-shadow: inset 0 0 0 1.5px var(--blue);
+  }
 }
 .detailIcon {
   width: 36px;
@@ -128,9 +130,11 @@ a.detail:hover {
   background: var(--white);
   transition: background var(--dur-micro), color var(--dur-micro);
 }
-.social:hover {
-  background: var(--navy);
-  color: #ffffff;
+@media (hover: hover) and (pointer: fine) {
+  .social:hover {
+    background: var(--navy);
+    color: #ffffff;
+  }
 }
 @media (min-width: 768px) {
   .row {

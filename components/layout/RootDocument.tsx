@@ -18,7 +18,7 @@ export function RootDocument({ locale, children }: { locale: Locale; children: R
         {/* Applique le thème mémorisé avant le premier rendu pour éviter un flash de fond */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `try{var t=localStorage.getItem("senou-theme");if(t!=="dark"&&t!=="light")t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";if(t==="dark")document.documentElement.dataset.theme="dark"}catch(e){}`,
+            __html: `try{var t=localStorage.getItem("senou-theme");if(t!=="dark"&&t!=="light")t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";if(t==="dark")document.documentElement.dataset.theme="dark";document.querySelectorAll('meta[name="theme-color"]').forEach(function(m){m.setAttribute("content",t==="dark"?"#09111f":"#f5f8fc")})}catch(e){}`,
           }}
         />
       </head>
