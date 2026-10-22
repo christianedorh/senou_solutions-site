@@ -1,6 +1,6 @@
 "use client";
-import { useEffect, useState } from "react";
-import { AnimatePresence, motion, useScroll, useTransform } from "motion/react";
+import { useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion, useInView, useScroll, useTransform } from "motion/react";
 import { Browser, DeviceMobile, CreditCard, CheckCircle } from "@phosphor-icons/react";
 import { useI18n } from "@/components/providers/I18n";
 import { Pill } from "@/components/ui/Pill";
@@ -29,6 +29,9 @@ export function Hero({ ready }: { ready: boolean }) {
   const { t, r } = useI18n();
   const h = t.hero;
   const reduced = useReducedMotionPref();
+  // Les boucles décoratives (forme, tuiles) s'arrêtent dès que le hero quitte l'écran : batterie.
+  const sectionRef = useRef<HTMLElement>(null);
+  const live = useInView(sectionRef) && !reduced;
   const [i, setI] = useState(0);
   useEffect(() => {
     if (reduced) return;
@@ -50,10 +53,10 @@ export function Hero({ ready }: { ready: boolean }) {
     transition: { duration: 0.8, ease: EASE, delay },
   });
   const float = (delay: number, amp = 6, dur = 7) =>
-    reduced ? {} : { y: [0, -amp, 0], transition: { delay, duration: dur, repeat: Infinity, ease: "easeInOut" as const } };
+    live ? { y: [0, -amp, 0], transition: { delay, duration: dur, repeat: Infinity, ease: "easeInOut" as const } } : { y: 0 };
 
   return (
-    <section className={`${s.hero} section`} aria-labelledby="hero-title">
+    <section ref={sectionRef} className={`${s.hero} section`} aria-labelledby="hero-title">
       <div className={`container ${s.grid}`}>
         <div className={s.copy}>
           <motion.div {...fade(0.1)}>
@@ -121,8 +124,8 @@ export function Hero({ ready }: { ready: boolean }) {
             <motion.path
               fill="url(#hero-navy)"
               initial={{ d: BLOB_A }}
-              animate={reduced ? {} : { d: [BLOB_A, BLOB_B, BLOB_A] }}
-              transition={{ duration: 16, repeat: Infinity, ease: "easeInOut" }}
+              animate={live ? { d: [BLOB_A, BLOB_B, BLOB_A], transition: { duration: 16, repeat: Infinity, ease: "easeInOut" } } : { d: BLOB_A }}
+              transition={{ duration: 0.6, ease: EASE }}
             />
           </svg>
 

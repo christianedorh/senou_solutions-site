@@ -14,6 +14,7 @@
 
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1); /* courbe des tiroirs iOS (menu mobile) */
   --dur-micro: 200ms;
   --dur-reveal: 700ms;
 
@@ -171,6 +172,8 @@ ul {
   font-size: clamp(24px, 2.5vw, 32px);
   line-height: 1.1;
   font-weight: 600;
+  /* Les petits titres se resserrent moins que les grands */
+  letter-spacing: -0.02em;
 }
 .body-l {
   font-size: clamp(18px, 1.4vw, 20px);

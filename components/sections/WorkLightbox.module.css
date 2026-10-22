@@ -9,6 +9,7 @@
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   overflow-y: auto;
+  overscroll-behavior: contain;
 }
 .dialog {
   position: relative;

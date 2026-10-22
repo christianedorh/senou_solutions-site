@@ -1,7 +1,7 @@
 "use client";
 import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, motion, type PanInfo } from "motion/react";
 import { ArrowLeft, ArrowRight, ArrowUpRight, X } from "@phosphor-icons/react";
 import { useI18n } from "@/components/providers/I18n";
 import { getLenis } from "@/components/providers/SmoothScroll";
@@ -13,6 +13,8 @@ type Slide = { src: string; mobile: boolean };
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 const host = (url: string) => new URL(url).hostname.replace(/^www\./, "");
+/** Point d'arrêt projeté d'un geste lancé (décélération du défilement iOS). */
+const momentum = (velocity: number, rate = 0.998) => ((velocity / 1000) * rate) / (1 - rate);
 
 /** Galerie plein écran d'un projet : captures desktop et mobile, clavier et focus gérés. */
 export function WorkLightbox({ project, onClose }: { project: WorkProject | null; onClose: () => void }) {
@@ -81,6 +83,15 @@ export function WorkLightbox({ project, onClose }: { project: WorkProject | null
 
   const slide = slides[index];
 
+  // Balayage : on regarde où le geste aurait fini sa course, pas seulement où le doigt s'est levé.
+  const stageRef = useRef<HTMLDivElement>(null);
+  const onDragEnd = (_: unknown, info: PanInfo) => {
+    const width = stageRef.current?.offsetWidth ?? 600;
+    const landing = info.offset.x + momentum(info.velocity.x);
+    if (landing < -width / 3) go(1);
+    else if (landing > width / 3) go(-1);
+  };
+
   return (
     <AnimatePresence>
       {project && (
@@ -89,7 +100,7 @@ export function WorkLightbox({ project, onClose }: { project: WorkProject | null
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.4, ease: EASE }}
+          transition={{ duration: 0.3, ease: EASE }}
           onClick={(e) => e.target === e.currentTarget && onClose()}
           data-lenis-prevent
         >
@@ -102,7 +113,7 @@ export function WorkLightbox({ project, onClose }: { project: WorkProject | null
             initial={{ opacity: 0, y: 40, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 24, scale: 0.98 }}
-            transition={{ duration: 0.6, ease: EASE }}
+            transition={{ duration: 0.35, ease: EASE }}
           >
             <header className={s.head}>
               <span className={s.logo} style={project.media.logoBg ? { background: project.media.logoBg } : undefined}>
@@ -123,7 +134,7 @@ export function WorkLightbox({ project, onClose }: { project: WorkProject | null
               </button>
             </header>
 
-            <div className={s.stage}>
+            <div className={s.stage} ref={stageRef}>
               <AnimatePresence mode="popLayout" initial={false} custom={dir}>
                 <motion.figure
                   key={slide?.src}
@@ -132,12 +143,17 @@ export function WorkLightbox({ project, onClose }: { project: WorkProject | null
                   initial={{ opacity: 0, x: dir * 60 }}
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: dir * -60 }}
-                  transition={{ duration: 0.55, ease: EASE }}
+                  transition={{ duration: 0.28, ease: EASE }}
+                  drag={n > 1 ? "x" : false}
+                  dragConstraints={{ left: 0, right: 0 }}
+                  dragElastic={1}
+                  dragTransition={{ bounceStiffness: 400, bounceDamping: 40 }}
+                  onDragEnd={onDragEnd}
                 >
                   {slide &&
                     (slide.mobile ? (
                       <span className={s.phone}>
-                        <Image src={slide.src} alt={`${ui.workShotOf} ${project.name} — ${ui.workMobile}`} width={780} height={1688} sizes="320px" />
+                        <Image src={slide.src} alt={`${ui.workShotOf} ${project.name} — ${ui.workMobile}`} width={780} height={1688} sizes="320px" draggable={false} />
                       </span>
                     ) : (
                       <span className={s.browser}>
@@ -147,7 +163,7 @@ export function WorkLightbox({ project, onClose }: { project: WorkProject | null
                           <i />
                           <span className={s.address}>{host(project.url)}</span>
                         </span>
-                        <Image src={slide.src} alt={`${ui.workShotOf} ${project.name} (${index + 1}/${n})`} width={1440} height={900} sizes="(min-width: 1024px) 900px, 92vw" />
+                        <Image src={slide.src} alt={`${ui.workShotOf} ${project.name} (${index + 1}/${n})`} width={1440} height={900} sizes="(min-width: 1024px) 900px, 92vw" draggable={false} />
                       </span>
                     ))}
                 </motion.figure>
