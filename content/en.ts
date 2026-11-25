@@ -100,6 +100,7 @@ export const en = {
       { name: "KDA PRO EVENTS", url: "https://kdaproevents.com" },
       { name: "Africa Ascent Foundation", url: "https://africaascent.org" },
       { name: "SPARK CORPORATION", url: null },
+      { name: "CFAO CONSUMER", url: null },
     ],
   },
   faq: {
@@ -112,6 +113,15 @@ export const en = {
       { q: "Do you integrate payment solutions?", a: "Yes. We integrate payment solutions into your web and mobile platforms." },
       { q: "Do you act as a provider or a consultant?", a: "Both, depending on your need: we can build the solution or advise you before you decide." },
     ],
+  },
+  holiday: {
+    footer: "Happy holidays and a great 2027",
+    pauseSnow: "Pause snowfall",
+    resumeSnow: "Resume snowfall",
+    edition: "Happy holidays",
+    greeting: "Happy holidays from all of us.",
+    text: "Thank you to our clients and partners for placing their trust in us this year. Planning a web, mobile or payments project for 2027? Let’s talk.",
+    cta: "Discuss your 2027 project",
   },
   finalCta: {
     title: ["Let's talk about", "your project."],

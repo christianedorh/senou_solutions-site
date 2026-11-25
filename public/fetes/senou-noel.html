@@ -1,0 +1,735 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SENOU Solutions · Joyeuses fêtes</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<!--
+  Spot de marque SENOU Solutions, édition fêtes de fin d'année.
+  Boucle de 6 s, CSS pur (transform + opacity), neige sur canvas, son synthétisé (Web Audio).
+  Fichier autonome : à ouvrir directement (/fetes/senou-noel.html) ou à intégrer en iframe.
+  Paramètres d'URL :
+    ?lang=en    textes en anglais
+    ?nosound    masque le bouton du son
+-->
+<style>
+  :root {
+    color-scheme: dark;
+    --cyan: #1fb5f0;
+    --blue: #1f6fe0;
+    --mist: #cfe3fb;
+    --gold: #f2b441;
+    --night: #06122b;
+    --night-2: #0a1b3d;
+    --night-3: #0f2a5c;
+    --snow: 234, 242, 252;
+    --cycle: 6s;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    height: 100%;
+    margin: 0;
+  }
+
+  body {
+    overflow: hidden;
+    background: var(--night);
+    font-family: "Outfit", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ---------- Scène : remplit la fenêtre ou l'iframe ---------- */
+  .stage {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    container-type: size;
+    overflow: hidden;
+    isolation: isolate;
+    background:
+      radial-gradient(90% 70% at 50% 108%, rgba(207, 227, 251, 0.16) 0%, rgba(207, 227, 251, 0) 60%),
+      radial-gradient(70% 60% at 50% 42%, var(--night-3) 0%, rgba(15, 42, 92, 0) 70%),
+      linear-gradient(180deg, var(--night) 0%, var(--night-2) 100%);
+  }
+
+  /* Halo doré, lent, hors du cycle */
+  .glow {
+    position: absolute;
+    left: 50%;
+    top: 46%;
+    width: 120cqmin;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(242, 180, 65, 0.13) 0%, rgba(242, 180, 65, 0) 62%);
+    transform: translate(-50%, -50%);
+    animation: breathe 9s cubic-bezier(0.45, 0, 0.55, 1) infinite alternate;
+    z-index: 0;
+  }
+
+  @keyframes breathe {
+    from { transform: translate(-50%, -50%) scale(0.92); opacity: 0.7; }
+    to   { transform: translate(-50%, -50%) scale(1.06); opacity: 1; }
+  }
+
+  #snow {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  /* Étoiles scintillantes, positions fixes */
+  .stars { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+
+  .star {
+    position: absolute;
+    width: var(--s, 1.4cqmin);
+    aspect-ratio: 1;
+    opacity: 0.25;
+    animation: twinkle var(--d, 3.2s) ease-in-out var(--w, 0s) infinite alternate;
+  }
+
+  .star::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--c, var(--mist));
+    clip-path: polygon(50% 0, 60% 40%, 100% 50%, 60% 60%, 50% 100%, 40% 60%, 0 50%, 40% 40%);
+  }
+
+  @keyframes twinkle {
+    from { opacity: 0.18; transform: scale(0.7) rotate(0deg); }
+    to   { opacity: 0.9;  transform: scale(1) rotate(12deg); }
+  }
+
+  /* ---------- Lockup ---------- */
+  .lockup {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3.6cqmin;
+    padding: 6cqmin;
+  }
+
+  .logo {
+    display: block;
+    width: min(64cqw, 150cqh);
+    height: auto;
+    overflow: visible;
+    filter: drop-shadow(0 0 3cqmin rgba(31, 181, 240, 0.18));
+  }
+
+  #brand-icon, #brand-word {
+    transform-box: fill-box;
+    will-change: transform, opacity;
+    opacity: 0;
+  }
+
+  #brand-icon {
+    transform-origin: center;
+    animation: icon-cycle var(--cycle) linear infinite both;
+  }
+
+  #brand-word {
+    transform-origin: left center;
+    animation: word-cycle var(--cycle) linear infinite both;
+  }
+
+  .rule {
+    width: 14cqmin;
+    height: 2px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, var(--cyan), var(--gold));
+    transform-origin: center;
+    opacity: 0;
+    animation: rule-cycle var(--cycle) linear infinite both;
+  }
+
+  .tagline {
+    margin: 0;
+    font-weight: 300;
+    font-size: clamp(13px, 4.4cqmin, 38px);
+    line-height: 1.1;
+    letter-spacing: 0.15em;
+    text-indent: 0.15em;
+    color: #eaf0fa;
+    text-align: center;
+    opacity: 0;
+    animation: tag-cycle var(--cycle) linear infinite both;
+  }
+
+  .tagline em { font-style: normal; color: var(--cyan); }
+
+  .greet {
+    display: inline-flex;
+    align-items: center;
+    gap: 1.6cqmin;
+    margin: 0.8cqmin 0 0;
+    font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-weight: 500;
+    font-size: clamp(11px, 2.6cqmin, 20px);
+    letter-spacing: 0.32em;
+    text-indent: 0.32em;
+    text-transform: uppercase;
+    color: var(--gold);
+    opacity: 0;
+    animation: greet-cycle var(--cycle) linear infinite both;
+  }
+
+  .greet::before, .greet::after {
+    content: "";
+    width: 1.3em;
+    aspect-ratio: 1;
+    background: currentColor;
+    clip-path: polygon(50% 0, 60% 40%, 100% 50%, 60% 60%, 50% 100%, 40% 60%, 0 50%, 40% 40%);
+    animation: spark-cycle var(--cycle) linear infinite both;
+  }
+
+  /* ---------- Cycle de 6 000 ms (1 % = 60 ms), 0 % === 100 % ---------- */
+
+  /* « S » : 100 → 1 000 ms, léger dépassement */
+  @keyframes icon-cycle {
+    0%     { opacity: 0; transform: translate3d(0, 4%, 0) scale(0.82); }
+    1.7%   { opacity: 0; transform: translate3d(0, 4%, 0) scale(0.82); animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1); }
+    16.7%, 88.3% { opacity: 1; transform: translate3d(0, 0, 0) scale(1); animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1); }
+    96.3%, 100%  { opacity: 0; transform: translate3d(0, -2%, 0) scale(0.97); }
+  }
+
+  /* Nom : 550 → 1 350 ms */
+  @keyframes word-cycle {
+    0%     { opacity: 0; transform: translate3d(-2.4%, 0, 0) scale(0.985); }
+    9.2%   { opacity: 0; transform: translate3d(-2.4%, 0, 0) scale(0.985); animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1); }
+    22.5%, 88.3% { opacity: 1; transform: translate3d(0, 0, 0) scale(1); animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1); }
+    96.3%, 100%  { opacity: 0; transform: translate3d(0, -2%, 0) scale(0.97); }
+  }
+
+  /* Filet cyan → or : 1 100 → 1 800 ms */
+  @keyframes rule-cycle {
+    0%     { opacity: 0; transform: scale3d(0, 1, 1); }
+    18.3%  { opacity: 0; transform: scale3d(0, 1, 1); animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1); }
+    30%, 88.3%   { opacity: 1; transform: scale3d(1, 1, 1); animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1); }
+    96.3%, 100%  { opacity: 0; transform: scale3d(1, 1, 1); }
+  }
+
+  /* Signature : 1 250 → 1 900 ms */
+  @keyframes tag-cycle {
+    0%     { opacity: 0; transform: translate3d(0, 60%, 0); }
+    20.8%  { opacity: 0; transform: translate3d(0, 60%, 0); animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1); }
+    31.7%, 88.3% { opacity: 1; transform: translate3d(0, 0, 0); animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1); }
+    96.3%, 100%  { opacity: 0; transform: translate3d(0, -20%, 0); }
+  }
+
+  /* Vœux : 2 100 → 2 900 ms */
+  @keyframes greet-cycle {
+    0%     { opacity: 0; transform: translate3d(0, 40%, 0); letter-spacing: 0.5em; }
+    35%    { opacity: 0; transform: translate3d(0, 40%, 0); letter-spacing: 0.5em; animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1); }
+    48.3%, 88.3% { opacity: 1; transform: translate3d(0, 0, 0); letter-spacing: 0.32em; animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1); }
+    96.3%, 100%  { opacity: 0; transform: translate3d(0, -20%, 0); letter-spacing: 0.32em; }
+  }
+
+  /* Étincelles de part et d'autre des vœux : 2 200 → 2 700 ms, puis scintillement */
+  @keyframes spark-cycle {
+    0%, 36.7% { transform: scale(0) rotate(-90deg); }
+    45%   { transform: scale(1.35) rotate(0deg); animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1); }
+    50%   { transform: scale(1) rotate(0deg); }
+    65%   { transform: scale(0.8) rotate(20deg); }
+    80%   { transform: scale(1) rotate(0deg); }
+    88.3% { transform: scale(1) rotate(0deg); }
+    96.3%, 100% { transform: scale(0) rotate(45deg); }
+  }
+
+  /* ---------- Bouton du son ---------- */
+  .sound {
+    position: absolute;
+    top: clamp(10px, 2.4cqmin, 20px);
+    right: clamp(10px, 2.4cqmin, 20px);
+    z-index: 5;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    margin: 0;
+    padding: 7px 11px 7px 9px;
+    appearance: none;
+    border: 1px solid rgba(207, 227, 251, 0.2);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.07);
+    backdrop-filter: blur(10px) saturate(1.2);
+    -webkit-backdrop-filter: blur(10px) saturate(1.2);
+    color: var(--mist);
+    font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 10px;
+    line-height: 1;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: color 0.25s ease, border-color 0.25s ease, background-color 0.25s ease;
+  }
+
+  .sound:hover { color: #fff; border-color: rgba(242, 180, 65, 0.45); background: rgba(255, 255, 255, 0.12); }
+  .sound:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+  .sound[aria-pressed="true"] { color: var(--gold); border-color: rgba(242, 180, 65, 0.5); background: rgba(242, 180, 65, 0.12); }
+  .sound b { font-weight: 500; }
+  .sound svg { width: 15px; height: 15px; flex: 0 0 auto; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+  .sound .wave, .sound .mute { transition: opacity 0.2s ease; }
+  .sound .wave { opacity: 0; }
+  .sound .mute { opacity: 0.75; }
+  .sound[aria-pressed="true"] .wave { opacity: 1; }
+  .sound[aria-pressed="true"] .mute { opacity: 0; }
+  .sound[hidden] { display: none; }
+
+  @container (max-width: 430px) {
+    .sound b { display: none; }
+    .sound { padding: 7px; gap: 0; }
+  }
+
+  /* ---------- Mouvement réduit : image fixe, tout visible ---------- */
+  @media (prefers-reduced-motion: reduce) {
+    .glow, .star, #brand-icon, #brand-word, .rule, .tagline, .greet, .greet::before, .greet::after {
+      animation: none !important;
+    }
+    #brand-icon, #brand-word, .rule, .tagline, .greet { opacity: 1; transform: none; }
+    .star { opacity: 0.6; }
+    .sound { transition: none; }
+  }
+</style>
+</head>
+<body>
+<main class="stage">
+  <div class="glow" aria-hidden="true"></div>
+  <canvas id="snow" aria-hidden="true"></canvas>
+
+  <div class="stars" aria-hidden="true">
+    <i class="star" style="left:8%;top:14%;--s:1.2cqmin;--d:2.8s;--w:-0.4s"></i>
+    <i class="star" style="left:17%;top:32%;--s:0.8cqmin;--d:3.6s;--w:-1.9s"></i>
+    <i class="star" style="left:24%;top:9%;--s:1.6cqmin;--d:3.1s;--w:-1.1s;--c:#f2b441"></i>
+    <i class="star" style="left:36%;top:20%;--s:0.7cqmin;--d:4.2s;--w:-2.6s"></i>
+    <i class="star" style="left:47%;top:7%;--s:1cqmin;--d:2.6s;--w:-0.8s"></i>
+    <i class="star" style="left:61%;top:15%;--s:1.4cqmin;--d:3.8s;--w:-3s;--c:#f2b441"></i>
+    <i class="star" style="left:72%;top:6%;--s:0.8cqmin;--d:3s;--w:-1.5s"></i>
+    <i class="star" style="left:83%;top:24%;--s:1.2cqmin;--d:3.4s;--w:-0.2s"></i>
+    <i class="star" style="left:92%;top:11%;--s:1.7cqmin;--d:4s;--w:-2.2s;--c:#f2b441"></i>
+    <i class="star" style="left:6%;top:72%;--s:0.9cqmin;--d:3.3s;--w:-1.4s"></i>
+    <i class="star" style="left:13%;top:86%;--s:1.3cqmin;--d:2.9s;--w:-2.8s;--c:#f2b441"></i>
+    <i class="star" style="left:88%;top:78%;--s:1cqmin;--d:3.7s;--w:-0.6s"></i>
+    <i class="star" style="left:95%;top:62%;--s:0.7cqmin;--d:2.7s;--w:-1.8s"></i>
+    <i class="star" style="left:79%;top:90%;--s:1.4cqmin;--d:4.1s;--w:-3.3s;--c:#f2b441"></i>
+  </div>
+
+  <div class="lockup">
+    <svg class="logo" xmlns="http://www.w3.org/2000/svg" viewBox="472 40 2072 696" role="img" aria-label="SENOU Solutions">
+      <g id="brand-icon">
+        <path fill="#1fb5f0" d="M1163.2,432.4C1162.1,431.6 1159.0,427.3 1156.3,422.8C1144.3,402.5 1120.8,383.5 1096.0,374.0C1070.1,364.1 1085.0,364.7 841.0,364.0C600.4,363.4 619.0,364.1 595.1,354.8C466.7,305.1 468.1,125.4 597.2,77.6C621.9,68.4 601.9,69.0 899.8,69.0C1179.5,69.0 1165.2,68.7 1167.9,73.8C1170.7,79.1 1168.1,94.5 1162.1,108.0C1150.2,134.8 1129.5,153.0 1099.5,163.1C1089.5,166.5 1089.5,166.5 864.0,167.0C705.6,167.4 637.5,167.9 635.0,168.7C592.0,182.0 584.5,236.3 622.4,258.9C634.2,266.0 616.1,265.4 848.5,266.0C1058.5,266.6 1058.5,266.6 1070.4,269.8C1114.5,281.7 1147.0,310.9 1162.5,352.5C1168.2,368.0 1169.1,373.7 1169.7,400.7C1170.4,431.7 1169.4,436.7 1163.2,432.4Z"/>
+        <path fill="#3b84ec" d="M507.3,705.9C500.5,703.9 499.4,698.0 503.0,682.5C511.4,646.4 544.9,616.4 584.1,610.1C588.4,609.4 662.3,609.0 809.1,609.0C950.2,609.0 1029.6,608.6 1033.0,608.0C1070.4,600.9 1085.1,552.1 1058.0,525.0C1051.4,518.4 1040.7,512.6 1032.6,511.1C1028.4,510.3 965.8,510.0 824.6,510.0C607.7,510.0 617.7,510.2 596.5,505.0C552.9,494.2 514.3,455.2 503.9,411.5C497.3,383.5 497.0,343.0 503.4,343.0C504.9,343.0 512.0,350.4 512.0,351.9C512.0,353.6 523.6,368.4 529.6,374.4C544.1,389.0 566.6,401.8 586.5,406.9C604.6,411.6 596.5,411.4 823.5,412.0C1036.5,412.5 1036.5,412.5 1048.9,414.8C1145.7,432.3 1198.2,538.0 1153.9,626.1C1130.5,672.8 1086.3,701.7 1031.6,706.0C1014.8,707.3 511.9,707.2 507.3,705.9Z"/>
+      </g>
+      <g id="brand-word">
+        <path fill="#ffffff" d="M2341.0,424.4C2272.0,416.5 2226.3,375.9 2216.9,314.3C2215.1,302.7 2214.4,96.9 2216.1,92.7C2218.5,87.1 2219.2,87.0 2272.5,87.0C2323.9,87.0 2326.4,87.2 2328.8,91.7C2329.5,92.9 2330.0,128.3 2330.3,188.0C2330.8,288.0 2330.8,288.9 2335.6,303.2C2343.2,326.2 2379.8,328.4 2390.5,306.6C2397.3,292.7 2397.3,292.6 2397.9,187.8C2398.5,93.0 2398.5,93.0 2401.3,90.3C2404.0,87.5 2404.0,87.5 2453.3,87.2C2505.5,86.9 2508.7,87.1 2511.6,91.5C2513.9,95.0 2513.1,302.9 2510.7,316.5C2500.8,372.2 2459.9,411.5 2400.0,422.6C2391.9,424.2 2349.8,425.4 2341.0,424.4ZM1209.3,416.3C1208.1,416.1 1205.9,414.5 1204.5,412.9C1201.8,409.6 1200.3,97.0 1203.1,91.8C1205.7,86.9 1204.0,87.0 1310.6,87.0C1418.4,87.0 1414.4,86.8 1418.0,92.2C1420.1,95.4 1420.8,162.4 1418.8,168.5C1416.4,176.0 1416.5,176.0 1368.2,176.0C1314.6,176.0 1315.3,175.7 1316.2,194.2C1316.8,208.8 1315.7,208.4 1363.4,209.0C1408.6,209.6 1406.8,209.2 1409.1,216.9C1411.1,223.7 1409.9,284.0 1407.7,287.4C1404.1,292.8 1402.4,293.0 1362.0,293.0C1315.5,293.0 1316.0,292.8 1316.0,310.6C1316.0,328.3 1315.0,328.0 1369.4,328.0C1429.0,328.0 1423.0,323.0 1423.0,372.5C1423.0,411.4 1422.8,412.9 1416.6,415.5C1413.2,416.9 1216.3,417.7 1209.3,416.3ZM1468.3,415.5C1466.6,414.8 1464.7,413.3 1464.1,412.1C1462.6,409.3 1462.6,94.7 1464.1,91.8C1466.6,87.2 1468.8,87.0 1520.1,87.0C1572.3,87.0 1573.8,87.1 1578.8,92.4C1581.4,95.1 1642.8,198.7 1659.2,228.0C1672.3,251.5 1677.5,250.7 1676.0,225.5C1674.4,199.2 1674.7,97.6 1676.5,93.4C1679.1,87.0 1679.4,87.0 1731.5,87.0C1783.6,87.0 1783.9,87.0 1786.5,93.4C1788.7,98.7 1788.7,405.3 1786.5,410.6C1783.8,417.0 1783.9,417.0 1728.8,417.0C1683.0,417.0 1679.2,416.8 1675.5,415.1C1669.0,412.1 1675.4,422.5 1594.9,284.5C1581.1,260.7 1580.2,259.7 1576.5,262.4C1574.7,263.7 1574.6,266.1 1574.9,335.2C1575.2,415.1 1575.4,412.7 1568.6,415.5C1563.5,417.6 1473.2,417.6 1468.3,415.5Z"/>
+        <path fill="#ffffff" fill-rule="evenodd" d="M1828.5,254.0A173.0,173.0 0 1 0 2174.5,254.0A173.0,173.0 0 1 0 1828.5,254.0ZM1884.5,254.0A117.0,117.0 0 1 0 2118.5,254.0A117.0,117.0 0 1 0 1884.5,254.0Z"/>
+        <path fill="#0a1b3d" d="M2078.9,164.2A118.5,118.5 0 1 1 1911.7,331.4A118.5,118.5 0 0 0 2078.9,164.2Z"/>
+        <path fill="#cfe3fb" d="M1561.1,702.0C1528.6,695.2 1508.4,674.9 1503.0,643.7C1499.2,621.4 1500.0,517.5 1504.0,513.5C1507.8,509.8 1520.6,508.6 1527.3,511.4C1534.1,514.2 1534.0,513.5 1534.0,572.3C1534.0,631.1 1534.5,637.6 1540.2,648.2C1557.1,679.9 1606.9,680.3 1627.9,648.9C1637.8,634.1 1638.4,629.9 1639.0,569.8C1639.6,506.5 1638.6,510.8 1653.3,510.2C1663.8,509.7 1668.4,511.4 1670.5,516.4C1672.7,521.7 1672.7,689.3 1670.5,694.6C1668.7,699.0 1664.2,701.0 1656.0,701.0C1645.3,701.0 1642.1,698.7 1640.0,689.4C1638.1,681.0 1635.0,679.8 1628.4,685.1C1610.3,699.7 1583.0,706.5 1561.1,702.0ZM1773.0,701.4C1753.6,696.3 1740.0,683.2 1734.8,664.4C1732.7,656.8 1732.6,654.2 1732.1,601.0C1731.7,560.7 1731.2,544.9 1730.3,543.4C1728.0,539.4 1725.8,538.5 1716.7,537.9C1705.5,537.1 1702.0,534.5 1701.2,526.2C1700.2,514.9 1703.8,511.0 1716.7,510.0C1730.0,508.9 1731.3,507.2 1732.0,489.2C1732.7,469.2 1736.3,465.4 1752.6,467.5C1763.0,468.8 1764.4,471.1 1765.0,488.2C1765.9,509.5 1766.4,510.0 1790.9,510.0C1813.2,510.0 1817.0,512.0 1817.0,524.0C1817.0,536.2 1813.4,538.0 1789.5,538.0C1762.7,538.0 1764.7,532.8 1765.2,601.5C1765.6,657.3 1765.6,657.4 1773.4,665.4C1780.5,672.6 1791.9,674.8 1805.5,671.5C1819.0,668.3 1826.0,672.8 1826.0,685.0C1826.0,698.2 1796.0,707.5 1773.0,701.4ZM2420.9,702.0C2391.6,696.7 2370.0,686.2 2370.0,677.2C2370.0,664.2 2381.4,654.9 2391.1,660.0C2421.5,675.8 2463.4,677.5 2479.0,663.4C2495.9,648.2 2485.1,628.6 2457.3,623.9C2399.2,614.1 2380.4,603.9 2374.5,578.9C2363.0,530.1 2410.6,498.4 2476.5,510.8C2505.5,516.3 2515.1,524.1 2508.6,536.9C2502.4,549.1 2499.5,550.3 2487.2,545.5C2448.9,530.7 2413.2,536.3 2407.0,558.1C2402.0,575.3 2415.7,585.9 2451.0,591.9C2501.9,600.7 2519.5,614.6 2519.5,646.0C2519.5,673.2 2504.6,690.1 2472.5,699.6C2462.8,702.5 2431.4,704.0 2420.9,702.0ZM1417.8,698.1C1413.0,693.8 1412.5,441.0 1417.3,436.3C1423.4,430.1 1442.5,432.2 1445.5,439.4C1447.7,444.7 1447.7,689.3 1445.5,694.6C1442.6,701.7 1424.4,704.0 1417.8,698.1ZM1869.0,699.7C1862.8,696.6 1863.0,700.1 1863.0,605.7C1863.0,532.7 1863.2,519.4 1864.5,516.4C1868.2,507.5 1890.8,507.5 1894.5,516.4C1896.7,521.6 1896.7,689.3 1894.6,694.5C1892.1,700.5 1876.8,703.6 1869.0,699.7ZM2168.0,699.2C2161.7,696.1 2162.0,700.6 2162.0,604.8C2162.0,502.9 2160.8,511.2 2175.2,510.2C2188.1,509.4 2191.8,511.9 2193.5,522.3C2194.8,530.7 2198.1,530.5 2211.8,521.3C2248.0,497.1 2302.9,506.8 2323.0,540.9C2333.8,559.4 2335.0,568.5 2335.0,635.7C2335.0,704.2 2335.9,701.0 2317.3,701.0C2301.4,701.0 2302.0,703.4 2302.0,638.3C2302.0,580.3 2301.7,576.6 2295.5,563.5C2279.3,529.3 2220.4,531.6 2202.8,567.0C2195.9,580.8 2195.7,583.1 2195.1,641.0C2194.4,698.7 2194.6,697.7 2188.4,700.0C2184.1,701.7 2171.9,701.2 2168.0,699.2ZM1870.4,470.1C1853.7,462.5 1853.5,439.0 1870.1,430.5C1887.2,421.6 1907.9,441.7 1899.2,458.7C1893.3,470.1 1881.1,475.0 1870.4,470.1Z"/>
+        <path fill="#cfe3fb" fill-rule="evenodd" d="M1183.8,605.5A96.2,96.2 0 1 0 1376.2,605.5A96.2,96.2 0 1 0 1183.8,605.5ZM1215.3,605.5A64.7,64.7 0 1 0 1344.7,605.5A64.7,64.7 0 1 0 1215.3,605.5ZM1933.5,605.5A96.0,96.0 0 1 0 2125.5,605.5A96.0,96.0 0 1 0 1933.5,605.5ZM1964.8,605.5A64.7,64.7 0 1 0 2094.2,605.5A64.7,64.7 0 1 0 1964.8,605.5Z"/>
+      </g>
+    </svg>
+
+    <div class="rule" aria-hidden="true"></div>
+
+    <p class="tagline" data-i18n="tagline">votre partenaire <em>digital</em></p>
+    <p class="greet" data-i18n="greet">Joyeuses fêtes</p>
+  </div>
+
+  <button class="sound" id="sound" type="button" aria-pressed="false" title="Activer le son">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M4.5 9.6h3L11.6 6.3v11.4L7.5 14.4h-3z"/>
+      <g class="wave"><path d="M14.6 9.6a3.6 3.6 0 0 1 0 4.8"/><path d="M17.1 7.4a7 7 0 0 1 0 9.2"/></g>
+      <g class="mute"><path d="M15.2 9.9l4.3 4.2"/><path d="M19.5 9.9l-4.3 4.2"/></g>
+    </svg>
+    <b>Activer le son</b>
+  </button>
+</main>
+
+<script>
+/* ---------- Langue et options d'URL ---------- */
+(function () {
+  "use strict";
+  var q = new URLSearchParams(location.search);
+  var en = q.get("lang") === "en";
+  var T = en
+    ? { tagline: 'your digital <em>partner</em>', greet: "Happy holidays", on: "Sound on", off: "Sound off", na: "No sound", title: "SENOU Solutions · Happy holidays" }
+    : { tagline: 'votre partenaire <em>digital</em>', greet: "Joyeuses fêtes", on: "Activer le son", off: "Couper le son", na: "Son indisponible", title: "SENOU Solutions · Joyeuses fêtes" };
+  document.documentElement.lang = en ? "en" : "fr";
+  document.title = T.title;
+  document.querySelector('[data-i18n="tagline"]').innerHTML = T.tagline;
+  document.querySelector('[data-i18n="greet"]').textContent = T.greet;
+  window.SENOU_T = T;
+  var btn = document.getElementById("sound");
+  btn.title = T.on;
+  btn.querySelector("b").textContent = T.on;
+  if (q.has("nosound")) btn.hidden = true;
+})();
+
+/* ---------- Neige : trois profondeurs, dérive latérale, hors du cycle ---------- */
+(function () {
+  "use strict";
+  var canvas = document.getElementById("snow");
+  var ctx = canvas.getContext("2d");
+  var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var flakes = [], w = 0, h = 0, dpr = 1, last = 0;
+
+  function seed(rand) { return { x: Math.random() * w, y: rand ? Math.random() * h : -10, z: 0.35 + Math.random() * 0.65, p: Math.random() * Math.PI * 2 }; }
+
+  function resize() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    w = canvas.clientWidth; h = canvas.clientHeight;
+    canvas.width = Math.round(w * dpr); canvas.height = Math.round(h * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    var n = Math.min(180, Math.round((w * h) / 7000));
+    while (flakes.length < n) flakes.push(seed(true));
+    flakes.length = n;
+    if (reduced) draw(0);
+  }
+
+  function draw(dt) {
+    ctx.clearRect(0, 0, w, h);
+    for (var i = 0; i < flakes.length; i++) {
+      var f = flakes[i];
+      if (dt) {
+        f.p += dt * (0.6 + f.z * 0.6);
+        f.y += dt * (14 + 46 * f.z);
+        f.x += dt * Math.sin(f.p) * 10 * f.z;
+        if (f.y > h + 6) { flakes[i] = seed(false); continue; }
+        if (f.x < -6) f.x = w + 6; else if (f.x > w + 6) f.x = -6;
+      }
+      var r = 0.6 + f.z * 2.1;
+      ctx.beginPath();
+      ctx.fillStyle = "rgba(234, 242, 252, " + (0.25 + f.z * 0.6).toFixed(3) + ")";
+      ctx.arc(f.x, f.y, r, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+
+  function frame(t) {
+    var dt = last ? Math.min((t - last) / 1000, 0.05) : 0;
+    last = t;
+    draw(dt);
+    requestAnimationFrame(frame);
+  }
+
+  new ResizeObserver(resize).observe(canvas);
+  resize();
+  if (!reduced) requestAnimationFrame(frame);
+})();
+
+/* ---------------------------------------------------------------------------
+   Son — entièrement synthétisé (Web Audio), aucun fichier.
+   Calage sur le cycle de 6 000 ms :
+     0,10 s  « S » qui entre      → souffle
+     0,57 s  le « S » se pose     → appui grave + La♭4
+     1,00 s  le nom glisse        → Do5
+     1,10 s  le filet se trace    → balayage discret
+     1,35 s  le nom en place      → Mi♭5
+     1,42 s  la signature monte   → accord La♭ add9
+     2,10 s  « Joyeuses fêtes »   → grelots + arpège de célesta
+     5,30 s  fondu visuel         → fondu sonore
+--------------------------------------------------------------------------- */
+(function () {
+  "use strict";
+
+  var CYCLE = 6, LOOKAHEAD = 1.2, LEVEL = 0.8, FADE_IN = 5.30, FADE_OUT = 5.78;
+  var T = window.SENOU_T;
+  var btn = document.getElementById("sound");
+  var label = btn.querySelector("b");
+
+  var ctx = null, mix = null, master = null, shaper = null, verb = null, noiseBuf = null;
+  var on = false, timer = null, nextStart = 0, refAnim = null, live = [];
+
+  function makeNoise(seconds) {
+    var rate = ctx.sampleRate, len = Math.floor(rate * seconds);
+    var buf = ctx.createBuffer(1, len, rate), d = buf.getChannelData(0), last = 0, i, v;
+    for (i = 0; i < len; i++) {
+      last = last * 0.86 + (Math.random() * 2 - 1) * 0.14;
+      v = last * 3.1;
+      d[i] = v > 1 ? 1 : (v < -1 ? -1 : v);
+    }
+    return buf;
+  }
+
+  function makeImpulse(seconds, decay) {
+    var rate = ctx.sampleRate, len = Math.floor(rate * seconds);
+    var buf = ctx.createBuffer(2, len, rate), c, i, d, lp, t;
+    for (c = 0; c < 2; c++) {
+      d = buf.getChannelData(c); lp = 0;
+      for (i = 0; i < len; i++) {
+        t = i / len;
+        lp = lp * 0.52 + (Math.random() * 2 - 1) * 0.48;
+        d[i] = lp * Math.pow(1 - t, decay) * (1 - Math.exp(-i / (rate * 0.005)));
+      }
+    }
+    return buf;
+  }
+
+  function softCurve() {
+    var n = 2048, c = new Float32Array(n), i, x;
+    for (i = 0; i < n; i++) { x = (i / (n - 1)) * 2 - 1; c[i] = Math.tanh(x * 1.3) / 1.3; }
+    return c;
+  }
+
+  function build() {
+    var AC = window.AudioContext || window.webkitAudioContext;
+    if (!AC) return false;
+    ctx = new AC();
+    shaper = ctx.createWaveShaper(); shaper.curve = softCurve(); shaper.oversample = "2x";
+    master = ctx.createGain(); master.gain.value = 0.0001;
+    mix = ctx.createGain(); mix.gain.value = 0.0001;
+    mix.connect(master); master.connect(shaper); shaper.connect(ctx.destination);
+
+    verb = ctx.createConvolver(); verb.normalize = true; verb.buffer = makeImpulse(2.8, 2.3);
+    var hp = ctx.createBiquadFilter(); hp.type = "highpass"; hp.frequency.value = 220;
+    var lp = ctx.createBiquadFilter(); lp.type = "lowpass"; lp.frequency.value = 4200;
+    var ret = ctx.createGain(); ret.gain.value = 0.9;
+    verb.connect(hp); hp.connect(lp); lp.connect(ret); ret.connect(mix);
+
+    noiseBuf = makeNoise(2.5);
+    return true;
+  }
+
+  function out(node, bus, wetAmt) {
+    node.connect(bus.dry);
+    if (wetAmt > 0) { var s = ctx.createGain(); s.gain.value = wetAmt; node.connect(s); s.connect(bus.wet); }
+  }
+
+  function bell(bus, t, freq, amp, dur, wet, bright) {
+    var g = ctx.createGain();
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.exponentialRampToValueAtTime(amp, t + 0.014);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    var lp = ctx.createBiquadFilter(); lp.type = "lowpass"; lp.Q.value = 0.4;
+    lp.frequency.setValueAtTime(Math.min(freq * 8, 15000), t);
+    lp.frequency.exponentialRampToValueAtTime(Math.max(freq * 2.2, 420), t + dur * 0.7);
+    g.connect(lp); out(lp, bus, wet);
+    [[1, 1, 0], [1, 0.22, -7], [2, 0.2 * bright, 0], [3.01, 0.075 * bright, 0], [4.02, 0.025 * bright, 0]].forEach(function (p) {
+      var o = ctx.createOscillator(); o.type = "sine"; o.frequency.value = freq * p[0]; o.detune.value = p[2];
+      var pg = ctx.createGain(); pg.gain.value = p[1];
+      o.connect(pg); pg.connect(g); o.start(t); o.stop(t + dur + 0.1);
+    });
+    var tri = ctx.createOscillator(); tri.type = "triangle"; tri.frequency.value = freq;
+    var tg = ctx.createGain(); tg.gain.value = 0.12;
+    tri.connect(tg); tg.connect(g); tri.start(t); tri.stop(t + dur + 0.1);
+  }
+
+  // Célesta : partiels purs, attaque nette, déclin court et brillant.
+  function celesta(bus, t, freq, amp, dur, wet) {
+    var g = ctx.createGain();
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.exponentialRampToValueAtTime(amp, t + 0.006);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    out(g, bus, wet);
+    [[1, 1], [4, 0.18], [10.1, 0.04]].forEach(function (p) {
+      var o = ctx.createOscillator(); o.type = "sine"; o.frequency.value = freq * p[0];
+      var pg = ctx.createGain(); pg.gain.value = p[1];
+      o.connect(pg); pg.connect(g); o.start(t); o.stop(t + dur + 0.05);
+    });
+  }
+
+  // Grelot : bruit en bande étroite très aiguë + deux partiels métalliques.
+  function jingle(bus, t, amp) {
+    var src = ctx.createBufferSource(); src.buffer = noiseBuf; src.playbackRate.value = 1.6;
+    var bp = ctx.createBiquadFilter(); bp.type = "bandpass"; bp.Q.value = 3.5; bp.frequency.value = 7200;
+    var g = ctx.createGain();
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.exponentialRampToValueAtTime(amp, t + 0.004);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + 0.16);
+    src.connect(bp); bp.connect(g); out(g, bus, 0.35);
+    src.start(t, Math.random() * 1.5); src.stop(t + 0.2);
+    [3170, 4690].forEach(function (f, k) {
+      var o = ctx.createOscillator(); o.type = "sine"; o.frequency.value = f * (0.99 + Math.random() * 0.02);
+      var og = ctx.createGain();
+      og.gain.setValueAtTime(0.0001, t);
+      og.gain.exponentialRampToValueAtTime(amp * (k ? 0.18 : 0.28), t + 0.003);
+      og.gain.exponentialRampToValueAtTime(0.0001, t + 0.12);
+      o.connect(og); out(og, bus, 0.3); o.start(t); o.stop(t + 0.15);
+    });
+  }
+
+  function pad(bus, t, freq, amp, attack, dur, wet) {
+    var g = ctx.createGain();
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.linearRampToValueAtTime(amp, t + attack);
+    g.gain.setValueAtTime(amp, t + attack + 0.3);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    var lp = ctx.createBiquadFilter(); lp.type = "lowpass"; lp.Q.value = 0.3; lp.frequency.value = Math.min(freq * 6, 14000);
+    g.connect(lp); out(lp, bus, wet);
+    [[1, 1, 0], [1, 0.5, 6], [2, 0.12, 0], [3, 0.04, 0]].forEach(function (p) {
+      var o = ctx.createOscillator(); o.type = "sine"; o.frequency.value = freq * p[0]; o.detune.value = p[2];
+      var pg = ctx.createGain(); pg.gain.value = p[1];
+      o.connect(pg); pg.connect(g); o.start(t); o.stop(t + dur + 0.15);
+    });
+  }
+
+  function swell(bus, t, dur, amp) {
+    var src = ctx.createBufferSource(); src.buffer = noiseBuf;
+    var hp = ctx.createBiquadFilter(); hp.type = "highpass"; hp.frequency.value = 150;
+    var lp = ctx.createBiquadFilter(); lp.type = "lowpass"; lp.Q.value = 0.9;
+    lp.frequency.setValueAtTime(240, t);
+    lp.frequency.exponentialRampToValueAtTime(2300, t + dur * 0.55);
+    lp.frequency.exponentialRampToValueAtTime(600, t + dur);
+    var g = ctx.createGain();
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.linearRampToValueAtTime(amp, t + dur * 0.55);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    src.connect(hp); hp.connect(lp); lp.connect(g); out(g, bus, 0.5);
+    src.start(t, 0.1); src.stop(t + dur + 0.05);
+  }
+
+  function thump(bus, t, freq, amp, dur) {
+    var o = ctx.createOscillator(); o.type = "sine";
+    o.frequency.setValueAtTime(freq * 1.5, t);
+    o.frequency.exponentialRampToValueAtTime(freq, t + 0.09);
+    var g = ctx.createGain();
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.exponentialRampToValueAtTime(amp, t + 0.02);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    o.connect(g); out(g, bus, 0.25); o.start(t); o.stop(t + dur + 0.05);
+  }
+
+  function sweep(bus, t, dur, amp) {
+    var src = ctx.createBufferSource(); src.buffer = noiseBuf; src.playbackRate.value = 1.2;
+    var bp = ctx.createBiquadFilter(); bp.type = "bandpass"; bp.Q.value = 6;
+    bp.frequency.setValueAtTime(1300, t);
+    bp.frequency.exponentialRampToValueAtTime(4200, t + dur);
+    var g = ctx.createGain();
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.linearRampToValueAtTime(amp, t + dur * 0.3);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    src.connect(bp); bp.connect(g); out(g, bus, 0.7);
+    src.start(t, 0.6); src.stop(t + dur + 0.05);
+  }
+
+  function scheduleCycle(t0) {
+    var bus = { dry: ctx.createGain(), wet: ctx.createGain() };
+    bus.dry.connect(mix); bus.wet.connect(verb);
+    live.push({ bus: bus, end: t0 + CYCLE + 0.8 });
+
+    var m = mix.gain;
+    m.cancelScheduledValues(t0);
+    m.setValueAtTime(0.0001, t0);
+    m.linearRampToValueAtTime(1, t0 + 0.03);
+    m.setValueAtTime(1, t0 + FADE_IN);
+    m.linearRampToValueAtTime(0.0001, t0 + FADE_OUT);
+
+    swell(bus, t0 + 0.10, 0.62, 0.075);
+    thump(bus, t0 + 0.56, 103.83, 0.075, 0.55);
+    bell(bus, t0 + 0.58, 415.30, 0.085, 1.5, 0.45, 0.8);
+    bell(bus, t0 + 1.00, 523.25, 0.070, 1.4, 0.50, 0.9);
+    sweep(bus, t0 + 1.10, 0.30, 0.022);
+    bell(bus, t0 + 1.35, 622.25, 0.062, 1.6, 0.55, 1.0);
+
+    var chord = [103.83, 207.65, 311.13, 415.30, 523.25], amps = [0.055, 0.045, 0.034, 0.030, 0.024], i;
+    for (i = 0; i < chord.length; i++) pad(bus, t0 + 1.42, chord[i], amps[i], 0.34, 3.4, 0.4);
+
+    // « Joyeuses fêtes » : grelots en deux salves, puis arpège de célesta montant
+    var bells = [0, 0.075, 0.14, 0.22, 0.29, 0.52, 0.6, 0.67, 0.78];
+    for (i = 0; i < bells.length; i++) jingle(bus, t0 + 2.10 + bells[i], i % 4 === 0 ? 0.05 : 0.032);
+    var arp = [830.61, 1046.50, 1244.51, 1661.22];
+    for (i = 0; i < arp.length; i++) celesta(bus, t0 + 2.14 + i * 0.13, arp[i], 0.05 - i * 0.006, 1.4, 0.7);
+    celesta(bus, t0 + 2.80, 1864.66, 0.018, 1.8, 0.85);
+  }
+
+  function cycleAnims() {
+    try { return document.getAnimations().filter(function (a) { return a.animationName && /-cycle$/.test(a.animationName); }); }
+    catch (e) { return []; }
+  }
+
+  function restartVisual() {
+    var anims = cycleAnims();
+    anims.forEach(function (a) { try { a.currentTime = 0; a.play(); } catch (e) {} });
+    return anims;
+  }
+
+  function prune(now) {
+    live = live.filter(function (l) {
+      if (l.end > now) return true;
+      try { l.bus.dry.disconnect(); l.bus.wet.disconnect(); } catch (e) {}
+      return false;
+    });
+  }
+
+  function killLive() {
+    live.forEach(function (l) {
+      try { l.bus.dry.gain.value = 0; l.bus.wet.gain.value = 0; l.bus.dry.disconnect(); l.bus.wet.disconnect(); } catch (e) {}
+    });
+    live = [];
+  }
+
+  function tick() {
+    if (!on || !ctx) return;
+    var now = ctx.currentTime;
+    prune(now);
+    if (refAnim && typeof refAnim.currentTime === "number") {
+      var vp = ((refAnim.currentTime / 1000) % CYCLE + CYCLE) % CYCLE;
+      var d = (((vp + (nextStart - now)) % CYCLE) + CYCLE) % CYCLE;
+      if (d > CYCLE / 2) d -= CYCLE;
+      if (Math.abs(d) > 0.4) nextStart = now + ((CYCLE - vp) % CYCLE);
+      else if (Math.abs(d) > 0.02) nextStart -= Math.max(-0.12, Math.min(0.12, d));
+    }
+    while (nextStart - ctx.currentTime < LOOKAHEAD) {
+      var t = Math.max(nextStart, ctx.currentTime + 0.02);
+      scheduleCycle(t);
+      nextStart = t + CYCLE;
+    }
+  }
+
+  function start() {
+    on = true;
+    killLive();
+    refAnim = null;
+    restartVisual().forEach(function (a) { if (a.animationName === "icon-cycle") refAnim = a; });
+    var now = ctx.currentTime;
+    master.gain.cancelScheduledValues(now);
+    master.gain.setValueAtTime(0.0001, now);
+    master.gain.linearRampToValueAtTime(LEVEL, now + 0.08);
+    nextStart = now + 0.07;
+    scheduleCycle(nextStart);
+    nextStart += CYCLE;
+    if (timer) clearInterval(timer);
+    timer = setInterval(tick, 220);
+    btn.setAttribute("aria-pressed", "true");
+    btn.title = T.off; label.textContent = T.off;
+  }
+
+  function stop() {
+    on = false;
+    if (timer) { clearInterval(timer); timer = null; }
+    if (ctx) {
+      var now = ctx.currentTime, g = master.gain;
+      g.cancelScheduledValues(now);
+      g.setValueAtTime(Math.max(g.value, 0.0001), now);
+      g.linearRampToValueAtTime(0.0001, now + 0.22);
+      setTimeout(function () { if (!on) killLive(); }, 320);
+    }
+    btn.setAttribute("aria-pressed", "false");
+    btn.title = T.on; label.textContent = T.on;
+  }
+
+  btn.addEventListener("click", function () {
+    if (on) { stop(); return; }
+    if (!ctx && !build()) { btn.disabled = true; label.textContent = T.na; return; }
+    var p = ctx.resume ? ctx.resume() : null;
+    if (p && p.then) p.then(start, start); else start();
+  });
+
+  document.addEventListener("visibilitychange", function () { if (!document.hidden && on) tick(); });
+})();
+</script>
+</body>
+</html>

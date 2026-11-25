@@ -8,6 +8,9 @@ import { ProofBar } from "@/components/sections/ProofBar";
 import { Services } from "@/components/sections/Services";
 import { Capabilities } from "@/components/sections/Capabilities";
 import type { FaqData } from "@/lib/faq";
+import { HOLIDAY } from "@/lib/holiday";
+
+const holiday = HOLIDAY;
 
 const Method = dynamic(() => import("@/components/sections/Method").then((m) => m.Method));
 const Work = dynamic(() => import("@/components/sections/Work").then((m) => m.Work));
@@ -23,18 +26,19 @@ export function HomePage({ faq }: { faq: FaqData }) {
   return (
     <>
       <Preloader onDone={onDone} />
-      <Nav visible={ready} />
+      <Nav visible={ready} holiday={holiday} />
       <main id="contenu">
-        <Hero ready={ready} />
+        <Hero ready={ready} holiday={holiday} />
         <ProofBar />
         <Services />
+        {holiday && <Work holiday />}
         <Capabilities />
         <Method />
-        <Work />
+        {!holiday && <Work />}
         <Numbers />
         <Partners />
         <Faq items={faq.home} />
-        <FinalCta />
+        <FinalCta holiday={holiday} />
       </main>
       <Footer />
     </>

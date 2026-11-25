@@ -40,6 +40,7 @@ export const pagesFr = {
     supportChannels: "Nous joindre",
     supportFaqAll: "Toute la FAQ",
     brandTagline: ["votre partenaire", "digital"],
+    holidayGreeting: "Joyeuses fêtes",
     servicesEyebrow: "Nos services",
     serviceAsk: "Parler de ce besoin",
     servicesCtaTitle: "Un besoin spécifique ?",

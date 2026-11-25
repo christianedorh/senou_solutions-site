@@ -25,12 +25,50 @@
   width: min(100% - 2 * var(--gutter), 960px);
 }
 .logo {
+  position: relative;
   display: block;
   flex: none;
 }
 .logo img {
   height: 34px;
   width: auto;
+}
+.santaHat {
+  position: absolute;
+  z-index: 1;
+  top: -10px;
+  left: -4px;
+  width: 23px;
+  height: 17px;
+  transform: rotate(-22deg);
+  pointer-events: none;
+  filter: drop-shadow(0 1px 2px #09111f55);
+}
+.santaHat span {
+  position: absolute;
+  inset: 1px 3px 3px;
+  background: linear-gradient(130deg, #f05151, #b91532);
+  border-radius: 85% 32% 0 0;
+  transform: skewX(-14deg);
+}
+.santaHat::before,
+.santaHat::after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  background: #fff8f1;
+}
+.santaHat::before {
+  inset: auto 0 0;
+  height: 5px;
+  border-radius: 999px;
+}
+.santaHat::after {
+  top: 0;
+  right: 0;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
 }
 .links {
   display: none;

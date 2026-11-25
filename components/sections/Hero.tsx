@@ -1,7 +1,7 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { AnimatePresence, motion, useInView, useScroll, useTransform } from "motion/react";
-import { Browser, DeviceMobile, CreditCard, CheckCircle } from "@phosphor-icons/react";
+import { Browser, DeviceMobile, CreditCard, CheckCircle, Sparkle } from "@phosphor-icons/react";
 import { useI18n } from "@/components/providers/I18n";
 import { Pill } from "@/components/ui/Pill";
 import { Button } from "@/components/ui/Button";
@@ -25,13 +25,21 @@ const TILES = [
   { key: "pay", Icon: CreditCard, cls: s.tilePay, delay: 1.5 },
 ] as const;
 
-export function Hero({ ready }: { ready: boolean }) {
+// Position, taille et décalage dans la boucle pour répartir les flocons dès l’arrivée.
+const SNOWFLAKES = [
+  [6, 12, 2], [14, 8, 7], [23, 14, 10], [34, 9, 4],
+  [46, 11, 8], [57, 8, 1], [65, 14, 6], [73, 10, 11],
+  [83, 15, 3], [92, 11, 9],
+] as const;
+
+export function Hero({ ready, holiday = false }: { ready: boolean; holiday?: boolean }) {
   const { t, r } = useI18n();
   const h = t.hero;
   const reduced = useReducedMotionPref();
   // Les boucles décoratives (forme, tuiles) s'arrêtent dès que le hero quitte l'écran : batterie.
   const sectionRef = useRef<HTMLElement>(null);
   const live = useInView(sectionRef) && !reduced;
+  const [snowPaused, setSnowPaused] = useState(false);
   const [i, setI] = useState(0);
   useEffect(() => {
     if (reduced) return;
@@ -56,11 +64,37 @@ export function Hero({ ready }: { ready: boolean }) {
     live ? { y: [0, -amp, 0], transition: { delay, duration: dur, repeat: Infinity, ease: "easeInOut" as const } } : { y: 0 };
 
   return (
-    <section ref={sectionRef} className={`${s.hero} section`} aria-labelledby="hero-title">
+    <section ref={sectionRef} className={`${s.hero} ${holiday ? s.holiday : ""} section`} aria-labelledby="hero-title">
+      {holiday && ready && (
+        <div className={`${s.snow} ${snowPaused || !live ? s.snowPaused : ""}`} aria-hidden>
+          {SNOWFLAKES.map(([left, size, delay], index) => (
+            <span
+              key={left}
+              className={s.flake}
+              style={{
+                left: `${left}%`,
+                fontSize: size,
+                animationDelay: `-${delay}s`,
+                animationDuration: `${12 + (index % 3) * 2}s`,
+                "--drift": index % 2 === 0 ? "28px" : "-22px",
+              } as CSSProperties}
+            >
+              ❄
+            </span>
+          ))}
+        </div>
+      )}
       <div className={`container ${s.grid}`}>
         <div className={s.copy}>
           <motion.div {...fade(0.1)}>
-            <Pill tone="cyan">{h.pill}</Pill>
+            {holiday ? (
+              <p className={s.season}>
+                <Sparkle size={18} weight="fill" aria-hidden />
+                {t.holiday.edition}
+              </p>
+            ) : (
+              <Pill tone="cyan">{h.pill}</Pill>
+            )}
           </motion.div>
           <h1 id="hero-title" className={`display-xl ${s.title}`}>
             <span className="sr-only">{`${h.titleLines.join(" ")} ${h.before} ${h.rotating.join(", ")}.`}</span>
@@ -114,6 +148,12 @@ export function Hero({ ready }: { ready: boolean }) {
           transition={{ duration: 1.3, ease: EASE, delay: 0.35 }}
         >
           <div className={s.glow} />
+          {holiday && (
+            <>
+              <Sparkle weight="fill" className={`${s.star} ${s.starTop} ${ready ? s.twinkle : ""}`} />
+              <Sparkle weight="fill" className={`${s.star} ${s.starBottom} ${ready ? s.twinkle : ""}`} />
+            </>
+          )}
           <svg className={s.blob} viewBox="0 0 600 600">
             <defs>
               <linearGradient id="hero-navy" x1="0" y1="0" x2="1" y2="1">
@@ -207,6 +247,17 @@ export function Hero({ ready }: { ready: boolean }) {
           </svg>
         </motion.div>
       </div>
+      {holiday && ready && (
+        <div className={`container ${s.snowControls}`}>
+          <button
+            type="button"
+            className={s.snowToggle}
+            onClick={() => setSnowPaused((paused) => !paused)}
+          >
+            {snowPaused ? t.holiday.resumeSnow : t.holiday.pauseSnow}
+          </button>
+        </div>
+      )}
     </section>
   );
 }

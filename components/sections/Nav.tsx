@@ -11,7 +11,7 @@ import { getLenis } from "@/components/providers/SmoothScroll";
 import { cleanHref } from "@/lib/format";
 import s from "./Nav.module.css";
 
-export function Nav({ visible }: { visible: boolean }) {
+export function Nav({ visible, holiday = false }: { visible: boolean; holiday?: boolean }) {
   const { locale, t, p, r } = useI18n();
   const pathname = usePathname() ?? "/";
   const { scrollY } = useScroll();
@@ -98,6 +98,11 @@ export function Nav({ visible }: { visible: boolean }) {
         transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
       >
         <a href={r("home")} className={s.logo} aria-label={p.ui.homeLabel}>
+          {holiday && (
+            <span className={s.santaHat} aria-hidden>
+              <span />
+            </span>
+          )}
           <Logo variant="auto" />
         </a>
         <nav className={s.links} aria-label={p.ui.mainNav}>

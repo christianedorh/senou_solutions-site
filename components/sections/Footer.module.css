@@ -110,3 +110,8 @@
     grid-template-columns: 1.6fr repeat(4, 1fr);
   }
 }
+/* Édition fêtes : ligne de vœux */
+.season {
+  color: #f2b441;
+  font-weight: 600;
+}

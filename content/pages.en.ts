@@ -38,6 +38,7 @@ export const pagesEn = {
     supportChannels: "Reach us",
     supportFaqAll: "Full FAQ",
     brandTagline: ["your digital", "partner"],
+    holidayGreeting: "Happy holidays",
     servicesEyebrow: "Our services",
     serviceAsk: "Discuss this need",
     servicesCtaTitle: "A specific need?",

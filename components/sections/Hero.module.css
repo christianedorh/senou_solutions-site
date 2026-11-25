@@ -3,6 +3,104 @@
   padding-bottom: 32px;
   overflow: hidden;
 }
+.holiday {
+  position: relative;
+  isolation: isolate;
+  background: radial-gradient(ellipse at 82% 50%, #f6dca654, transparent 62%);
+}
+.holiday .glow {
+  background: radial-gradient(closest-side, #f2b44159, transparent);
+}
+.snow {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  color: #557da3;
+}
+:global([data-theme="dark"]) .snow {
+  color: #e1efff;
+}
+.flake {
+  position: absolute;
+  top: 56px;
+  line-height: 1;
+  font-variant-emoji: text;
+  opacity: 0;
+  animation: snowfall 12s linear infinite;
+}
+.snowPaused .flake {
+  animation-play-state: paused;
+}
+.snowControls {
+  display: flex;
+  justify-content: flex-end;
+}
+.snowToggle {
+  min-height: 44px;
+  padding-inline: 10px;
+  border: 0;
+  background: transparent;
+  color: var(--ink-2);
+  font: inherit;
+  font-size: 0.875rem;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  cursor: pointer;
+}
+@keyframes snowfall {
+  0% { opacity: 0; transform: translate3d(0, -32px, 0); }
+  18%, 78% { opacity: 0.5; }
+  100% { opacity: 0; transform: translate3d(var(--drift), min(80vh, 620px), 0) rotate(65deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .snow, .snowControls { display: none; }
+  .flake { animation: none; }
+}
+.season {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border: 1px solid #e4c58f;
+  border-radius: 999px;
+  background: #fff6e6;
+  color: #73450e;
+  font-size: 0.875rem;
+  font-weight: 650;
+}
+.season svg {
+  flex: none;
+}
+.star {
+  position: absolute;
+  z-index: 1;
+  color: #ad7019;
+}
+.twinkle {
+  animation: twinkle 1.6s var(--ease-out, ease-out) 2;
+}
+@keyframes twinkle {
+  0%, 100% { opacity: 1; }
+  30% { opacity: 0.5; transform: scale(0.9); }
+  62% { opacity: 1; transform: scale(1.3) rotate(14deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .twinkle { animation: none; }
+}
+.starTop {
+  width: clamp(18px, 6%, 34px);
+  height: auto;
+  top: 14%;
+  right: 15%;
+}
+.starBottom {
+  animation-delay: 280ms;
+  width: clamp(12px, 3.5%, 20px);
+  height: auto;
+  bottom: 12%;
+  right: 21%;
+}
 .grid {
   display: grid;
   gap: 48px;

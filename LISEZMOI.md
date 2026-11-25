@@ -82,3 +82,15 @@ La liste des contenus à valider (opérateurs de paiement, descriptions des réa
 ## Thème clair / blanc
 
 Un bouton rond fixé sur le bord droit de l'écran permet de basculer entre le fond clair bleuté (par défaut) et le fond blanc. Le choix est mémorisé dans le navigateur du visiteur. Pour imposer un seul fond, retirer `<ThemeToggle />` dans `components/layout/RootDocument.tsx`.
+
+## Édition de fin d’année 2026
+
+Pour prévisualiser l’édition sur l’accueil français et anglais, lancer
+`NEXT_PUBLIC_HOLIDAY_EDITION=1 npm run dev`.
+
+Période proposée du 1er décembre 2026 au 6 janvier 2027 inclus.
+Compiler l’export statique avec `NEXT_PUBLIC_HOLIDAY_EDITION=1 npm run build`
+en conservant le réglage `SITE_LIVE` de l’environnement de publication.
+Le site statique conserve l’édition de son dernier export. Pour revenir à
+l’accueil habituel le 7 janvier, recompiler sans la variable festive et
+publier le nouvel export.

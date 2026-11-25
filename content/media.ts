@@ -32,6 +32,7 @@ export const PARTNER_LOGOS: Record<string, string | null> = {
   "https://kdaproevents.com": "/logos/kdaproevents.png",
   "https://africaascent.org": "/logos/africaascent.png",
   "SPARK CORPORATION": "/logos/sparkcorporation.jpg",
+  "CFAO CONSUMER": "/logos/cfaoconsumer.png",
 };
 
 export const mediaKey = (item: { url: string | null; name: string }) => item.url ?? item.name;

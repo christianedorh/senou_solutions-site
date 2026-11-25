@@ -13,7 +13,7 @@ import s from "./FinalCta.module.css";
 
 const tel = (n: string) => `tel:${n.replace(/[^\d+]/g, "")}`;
 
-export function FinalCta() {
+export function FinalCta({ holiday = false }: { holiday?: boolean }) {
   const { t, p } = useI18n();
   const c = t.finalCta;
   const ref = useRef<HTMLDivElement>(null);
@@ -29,16 +29,16 @@ export function FinalCta() {
   ];
 
   return (
-    <Curtain id="contact" className={s.wrap}>
+    <Curtain id="contact" className={`${s.wrap} ${holiday ? s.holiday : ""}`}>
       <div className={`container ${s.grid}`} ref={ref}>
         <div className={s.copy}>
           <h2 className="display-l">
-            <SplitText as="span" text={c.title.join(" ")} accentLast />
+            {holiday ? t.holiday.greeting : <SplitText as="span" text={c.title.join(" ")} accentLast />}
           </h2>
-          <p className={`body-l ${s.text}`}>{c.text}</p>
+          <p className={`body-l ${s.text}`}>{holiday ? t.holiday.text : c.text}</p>
           <Reveal delay={0.15}>
             <Button href={`mailto:${c.email}`}>
-              {c.primary} <ArrowRight size={18} weight="bold" aria-hidden />
+              {holiday ? t.holiday.cta : c.primary} <ArrowRight size={18} weight="bold" aria-hidden />
             </Button>
           </Reveal>
         </div>

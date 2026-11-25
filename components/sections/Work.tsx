@@ -13,8 +13,9 @@ const EASE = [0.16, 1, 0.3, 1] as const;
 const host = (url: string) => new URL(url).hostname.replace(/^www\./, "");
 /** Nombre de projets mis en avant en grand format. */
 const FEATURED = 2;
+const HOLIDAY_FEATURED = ["https://kaevents.net", "https://teststock.senousolutions.com/signin"];
 
-export function Work() {
+export function Work({ holiday = false }: { holiday?: boolean }) {
   const { t, p, r } = useI18n();
   const w = t.work;
   const [open, setOpen] = useState<WorkProject | null>(null);
@@ -26,6 +27,13 @@ export function Work() {
     const media = WORK_MEDIA[mediaKey(it)];
     if (it.url && media) publicProjects.push({ name: it.name, tag: it.tag, text: it.text, url: it.url, media });
     else privateProjects.push(it);
+  }
+  if (holiday) {
+    const rank = (project: WorkProject) => {
+      const index = HOLIDAY_FEATURED.indexOf(mediaKey(project));
+      return index === -1 ? FEATURED : index;
+    };
+    publicProjects.sort((a, b) => rank(a) - rank(b));
   }
 
   const reveal = (i: number) => ({

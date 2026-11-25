@@ -4,6 +4,12 @@
   padding-block: var(--section);
   overflow: hidden;
 }
+.holiday {
+  background: radial-gradient(ellipse at 88% 0%, #b27b3c44, transparent 60%), var(--navy);
+}
+.holiday h2 {
+  color: #ffdfaa;
+}
 .grid {
   display: grid;
   gap: 56px;

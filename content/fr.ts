@@ -101,6 +101,7 @@ export const fr = {
       { name: "KDA PRO EVENTS", url: "https://kdaproevents.com" },
       { name: "Fondation Africa Ascent", url: "https://africaascent.org" },
       { name: "SPARK CORPORATION", url: null },
+      { name: "CFAO CONSUMER", url: null },
     ],
     // Pas de témoignages inventés : à ajouter seulement quand de vrais avis sont disponibles.
   },
@@ -114,6 +115,15 @@ export const fr = {
       { q: "Intégrez-vous des solutions de paiement ?", a: "Oui. Nous intégrons des solutions de paiement dans vos plateformes web et mobiles." },
       { q: "Intervenez-vous comme prestataire ou comme consultant ?", a: "Les deux, selon votre besoin : nous pouvons construire la solution ou vous conseiller avant de décider." },
     ],
+  },
+  holiday: {
+    footer: "Joyeuses fêtes et belle année 2027",
+    pauseSnow: "Mettre la neige en pause",
+    resumeSnow: "Relancer la neige",
+    edition: "Joyeuses fêtes",
+    greeting: "Joyeuses fêtes de la part de toute l’équipe.",
+    text: "Merci à nos clients et partenaires pour leur confiance cette année. Vous préparez un projet web, mobile ou de paiement pour 2027 ? Parlons-en.",
+    cta: "Parlons de votre projet 2027",
   },
   finalCta: {
     title: ["Parlons de", "votre projet."],

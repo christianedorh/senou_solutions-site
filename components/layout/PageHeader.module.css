@@ -11,3 +11,78 @@
   max-width: 56ch;
   color: var(--ink-2);
 }
+.pills {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ---------- Édition fêtes ---------- */
+.holiday {
+  position: relative;
+  isolation: isolate;
+}
+.season {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border: 1px solid #e4c58f;
+  border-radius: 999px;
+  background: #fff6e6;
+  color: #73450e;
+  font-size: 0.875rem;
+  font-weight: 650;
+}
+.snow {
+  position: absolute;
+  inset: -40px 0 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+  color: #557da3;
+}
+:global([data-theme="dark"]) .snow {
+  color: #e1efff;
+}
+.flake {
+  position: absolute;
+  top: 0;
+  line-height: 1;
+  font-variant-emoji: text;
+  opacity: 0;
+  animation: snowfall 3.6s linear both;
+}
+@keyframes snowfall {
+  0% { opacity: 0; transform: translate3d(0, -24px, 0); }
+  20%, 70% { opacity: 0.45; }
+  100% { opacity: 0; transform: translate3d(var(--drift), 320px, 0) rotate(60deg); }
+}
+.star {
+  position: absolute;
+  color: #ad7019;
+  animation: twinkle 1.6s ease-out 0.4s 2;
+}
+.starA {
+  top: 18%;
+  right: 8%;
+  width: clamp(18px, 3vw, 30px);
+  height: auto;
+}
+.starB {
+  top: 48%;
+  right: 16%;
+  width: clamp(12px, 2vw, 18px);
+  height: auto;
+  animation-delay: 0.7s;
+}
+@keyframes twinkle {
+  0%, 100% { opacity: 1; }
+  30% { opacity: 0.5; transform: scale(0.9); }
+  62% { opacity: 1; transform: scale(1.3) rotate(14deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .flake { display: none; }
+  .star { animation: none; }
+}

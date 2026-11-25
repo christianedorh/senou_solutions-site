@@ -8,14 +8,19 @@
 }
 
 /* Mur de logos partenaires */
+/* Flex centré : une ligne incomplète reste centrée, quel que soit le nombre de partenaires. */
 .wall {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
+  --cols: 2;
+  --gap: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--gap);
   margin-top: 56px;
 }
 .wall > li {
   display: grid;
+  flex: 0 0 calc((100% - (var(--cols) - 1) * var(--gap)) / var(--cols));
 }
 .tile {
   display: grid;
@@ -221,14 +226,17 @@
 }
 @media (min-width: 768px) {
   .wall {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
+    --cols: 3;
+    --gap: 16px;
   }
   .tile {
     min-height: 240px;
   }
 }
 @media (min-width: 1024px) {
+  .wall {
+    --cols: 5;
+  }
   .story {
     grid-template-columns: 1fr 1.1fr;
     padding: 56px 0 0 56px;

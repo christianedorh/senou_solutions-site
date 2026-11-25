@@ -4,6 +4,7 @@ import { LinkedinLogo, InstagramLogo, FacebookLogo, XLogo, YoutubeLogo, type Ico
 import { useI18n } from "@/components/providers/I18n";
 import { Logo } from "@/components/ui/Logo";
 import { cleanHref } from "@/lib/format";
+import { HOLIDAY } from "@/lib/holiday";
 import s from "./Footer.module.css";
 
 const SOCIAL_ICONS: Record<string, PhosphorIcon> = { LinkedIn: LinkedinLogo, Instagram: InstagramLogo, Facebook: FacebookLogo, X: XLogo, YouTube: YoutubeLogo };
@@ -55,6 +56,7 @@ export function Footer() {
       </div>
       <div className={`container ${s.legal}`}>
         <span>{f.copyright}</span>
+        {HOLIDAY && <span className={s.season}>✦ {t.holiday.footer}</span>}
         <span>
           <a href={r("terms")}>{p.termsPage.title.join(" ")}</a> · <a href={r("privacy")}>{p.privacyPage.title.join(" ")}</a>
         </span>
